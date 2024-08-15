@@ -1,4 +1,4 @@
-import { FaLocationArrow } from "react-icons/fa";
+import { FaLocationArrow, FaDownload } from "react-icons/fa";
 import MagicButton from "./MagicButton"
 import { Spotlight } from "./ui/Spotlight"
 import { TextGenerateEffect } from "./ui/text-generate-effect"
@@ -54,6 +54,7 @@ const Hero = () => {
             words="Integrated Masters Student of Informatics @ The University of Edinburgh"
             className="text-center md:tracking-wider mb-4 text-sm md:text-md lg:text-xl"
           />
+          <div className="flex gap-8">
           <a href="#about">
             <MagicButton
               title="Show my work"
@@ -61,6 +62,14 @@ const Hero = () => {
               position="right"
             />
           </a>
+          <a href="/Jamie_Holroyde_CV.pdf">
+            <MagicButton
+              title="Download CV"
+              icon={<FaDownload />}
+              position="right"
+            />
+          </a>
+          </div>
         </div>
       </div>
     </div>
