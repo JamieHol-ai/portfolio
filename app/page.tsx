@@ -11,6 +11,7 @@ import RecentProjects from "@/components/RecentProjects";
 import { FloatingNav } from "@/components/ui/FloatingNavbar";
 import { TracingBeam } from "@/components/ui/TracingBeam";
 import { useEffect, useState } from "react";
+import { Skills } from "@/components/Skills";
 
 const Home = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -29,6 +30,7 @@ const Home = () => {
             <Hero />
             <Grid />
             <RecentProjects />
+            <Skills />
             <Clients />
             <Experience />
             <Footer />
@@ -38,6 +40,7 @@ const Home = () => {
             <Hero />
             <Grid />
             <RecentProjects />
+            <Skills />
             <Clients />
             <Experience />
             <Footer />
