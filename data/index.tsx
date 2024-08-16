@@ -1,4 +1,4 @@
-import { link } from "fs";
+import { FaGithub, FaLinkedinIn, FaEnvelope } from "react-icons/fa6";
 
 export const navItems = [
     { name: "About", link: "#about" },
@@ -7,74 +7,106 @@ export const navItems = [
     { name: "Contact", link: "#contact" },
   ];
   
-  export const gridItems = [
+  export const projects = [
     {
       id: 1,
-      title: "I prioritize client collaboration, fostering open communication ",
-      description: "",
+      title: "Digital Library",
+      description: "Built using React.js, Astro and Tailwind CSS",
       className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-[60vh]",
       imgClassName: "w-full h-full",
       titleClassName: "justify-end",
-      img: "/b1.svg",
+      img: "/b1.svg", //TODO change to an image of the libary on an ipad
       spareImg: "",
       link: "https://www.google.com",
       content: () => {
         return (
           <p>
-            Lana Del Rey, an iconic American singer-songwriter, is celebrated for
-            her melancholic and cinematic music style. Born Elizabeth Woolridge
-            Grant in New York City, she has captivated audiences worldwide with
-            her haunting voice and introspective lyrics. <br /> <br /> Her songs
-            often explore themes of tragic romance, glamour, and melancholia,
-            drawing inspiration from both contemporary and vintage pop culture.
-            With a career that has seen numerous critically acclaimed albums, Lana
-            Del Rey has established herself as a unique and influential figure in
-            the music industry, earning a dedicated fan base and numerous
-            accolades.
+            Web Application Development: Utilised Astro, Tailwind, and React to create a user-friendly web application for displaying videos and books. 
+            This application was designed with a simple, child-friendly interface to ensure accessibility and engagement for young users. <br/>
+            Cloud Hosting: Hosted the digital library on Cloudflare, leveraging its secure and fast infrastructure to ensure reliable access to educational resources
           </p>
         );
       },
     },
     {
       id: 2,
-      title: "I'm very flexible with time zone communications",
-      description: "",
+      title: "3D Room Scanner",
+      description: "Using an Arduino, C++ and Python",
       className: "lg:col-span-2 md:col-span-3 md:row-span-2",
-      imgClassName: "",
-      titleClassName: "justify-start",
-      img: "",
+      imgClassName: "bottom-0 absolute h-1/2",
+      titleClassName: "justify-end",
+      img: "/Projects/Room Scanner.png",
       spareImg: "",
+      link: "https://www.google.com",
+      content: () => {
+        return (
+          <p>
+            Gold CREST award entry. The project was to design and build an affordable 3D room scanner capable of scanning spaces within a 180-degree field of view. 
+            Further detail contained in the Crest report.pdf file
+          </p>
+        );
+      },
     },
     {
       id: 3,
-      title: "My tech stack",
-      description: "I constantly try to improve",
+      title: "Optical Speed Sensor",
+      description: "Using C++ to interface with a race car",
       className: "lg:col-span-2 md:col-span-3 md:row-span-2",
       imgClassName: "",
       titleClassName: "justify-center",
-      img: "",
+      img: "", // Change to a 3D image of a racecar
       spareImg: "",
+      link: "https://www.google.com",
+      content: () => {
+        return (
+          <p>
+            Web Application Development: Utilised Astro, Tailwind, and React to create a user-friendly web application for displaying videos and books. 
+            This application was designed with a simple, child-friendly interface to ensure accessibility and engagement for young users. <br/>
+            Cloud Hosting: Hosted the digital library on Cloudflare, leveraging its secure and fast infrastructure to ensure reliable access to educational resources
+          </p>
+        );
+      },
     },
     {
       id: 4,
-      title: "Tech enthusiast with a passion for development.",
+      title: "Planetary Orbit Simulator",
       description: "",
       className: "lg:col-span-2 md:col-span-3 md:row-span-1",
       imgClassName: "",
       titleClassName: "justify-start",
-      img: "/grid.svg",
-      spareImg: "/b4.svg",
+      img: "/grid.svg", //TODO - change to a gif of the planets orbiting
+      spareImg: "/b4.svg", //TODO - add commets to the background
+      link: "https://www.google.com",
+      content: () => {
+        return (
+          <p>
+            Web Application Development: Utilised Astro, Tailwind, and React to create a user-friendly web application for displaying videos and books. 
+            This application was designed with a simple, child-friendly interface to ensure accessibility and engagement for young users. <br/>
+            Cloud Hosting: Hosted the digital library on Cloudflare, leveraging its secure and fast infrastructure to ensure reliable access to educational resources
+          </p>
+        );
+      },
     },
   
     {
       id: 5,
-      title: "Currently building a JS Animation library",
-      description: "The Inside Scoop",
+      title: "AI Flappy Bird",
+      description: "Current Project",
       className: "md:col-span-3 md:row-span-2",
       imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
       titleClassName: "justify-center md:justify-start lg:justify-center",
-      img: "/b5.svg",
+      img: "/b5.svg", //TODO - change to flappy bird image
       spareImg: "/grid.svg",
+      link: "https://www.google.com",
+      content: () => {
+        return (
+          <p>
+            Web Application Development: Utilised Astro, Tailwind, and React to create a user-friendly web application for displaying videos and books. 
+            This application was designed with a simple, child-friendly interface to ensure accessibility and engagement for young users. <br/>
+            Cloud Hosting: Hosted the digital library on Cloudflare, leveraging its secure and fast infrastructure to ensure reliable access to educational resources
+          </p>
+        );
+      },
     },
     {
       id: 6,
@@ -88,104 +120,58 @@ export const navItems = [
     },
   ];
   
-  export const projects = [
-    {
-      id: 1,
-      title: "3D Solar System Planets to Explore",
-      des: "Explore the wonders of our solar system with this captivating 3D simulation of the planets using Three.js.",
-      img: "/p1.svg",
-      iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/three.svg", "/fm.svg"],
-      link: "/ui.earth.com",
-    },
-    {
-      id: 2,
-      title: "Yoom - Video Conferencing App",
-      des: "Simplify your video conferencing experience with Yoom. Seamlessly connect with colleagues and friends.",
-      img: "/p2.svg",
-      iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/stream.svg", "/c.svg"],
-      link: "/ui.yoom.com",
-    },
-    {
-      id: 3,
-      title: "AI Image SaaS - Canva Application",
-      des: "A REAL Software-as-a-Service app with AI features and a payments and credits system using the latest tech stack.",
-      img: "/p3.svg",
-      iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/three.svg", "/c.svg"],
-      link: "/ui.aiimg.com",
-    },
-    {
-      id: 4,
-      title: "Animated Apple Iphone 3D Website",
-      des: "Recreated the Apple iPhone 15 Pro website, combining GSAP animations and Three.js 3D effects..",
-      img: "/p4.svg",
-      iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/three.svg", "/gsap.svg"],
-      link: "/ui.apple.com",
-    },
-  ];
-  
   export const testimonials = [
     {
       quote:
-        "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-      name: "Michael Johnson",
-      title: "Director of AlphaStream Technologies",
+        "Working with Jamie was great (Hopefull)",
+      name: "Lesley Ellis",
+      title: "Managing Trustee at Cromar Future Group, Charity SC04703",
+      image: "/testimonials/profile.svg",
     },
     {
       quote:
-        "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-      name: "Michael Johnson",
-      title: "Director of AlphaStream Technologies",
+        "He's a cool guy",
+      name: "David Harper",
+      title: "??? not putting retired",
     },
     {
       quote:
-        "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-      name: "Michael Johnson",
-      title: "Director of AlphaStream Technologies",
+        "idk",
+      name: "Jono Hope",
+      title: "Hot Sauce Guy",
     },
     {
       quote:
-        "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-      name: "Michael Johnson",
-      title: "Director of AlphaStream Technologies",
+        "Cool",
+      name: "Jake/Mark",
+      title: "Work in Studycat",
     },
     {
       quote:
-        "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-      name: "Michael Johnson",
-      title: "Director of AlphaStream Technologies",
+        "Cool",
+      name: "Meet and code Person?",
+      title: "Work in Studycat",
     },
   ];
   
   export const companies = [
     {
       id: 1,
-      name: "cloudinary",
-      img: "/cloud.svg",
-      nameImg: "/cloudName.svg",
+      name: "Studycat",
+      img: "/testimonials/studycat.svg",
+      nameImg: "/testimonials/studycatName.svg",
     },
     {
       id: 2,
-      name: "appwrite",
-      img: "/app.svg",
-      nameImg: "/appName.svg",
+      name: "Cromar Future Group",
+      img: "/testimonials/EE.jpg",
+      nameImg: "/testimonials/EEName.jpg",
     },
     {
       id: 3,
-      name: "HOSTINGER",
-      img: "/host.svg",
-      nameImg: "/hostName.svg",
-    },
-    {
-      id: 4,
-      name: "stream",
-      img: "/s.svg",
-      nameImg: "/streamName.svg",
-    },
-    {
-      id: 5,
-      name: "docker.",
-      img: "/dock.svg",
-      nameImg: "/dockerName.svg",
+      name: "Meet and Code",
+      img: "/testimonials/meet_and_code.png",
+      nameImg: "/testimonials/meet_and_codeName.png",
     },
   ];
   
@@ -223,53 +209,92 @@ export const navItems = [
   export const socialMedia = [
     {
       id: 1,
-      img: "/git.svg",
+      img: () => {return(<FaGithub/>);},
+      link: "https://github.com/JamieHol-ai",
     },
     {
       id: 2,
-      img: "/twit.svg",
+      img: () => {return(<FaLinkedinIn/>);},
+      link: "https://www.linkedin.com/in/jamieholroyde/",
     },
     {
       id: 3,
-      img: "/link.svg",
+      img: () => {return(<FaEnvelope/>);},
+      link: "mailto:jamieholroyde@gmail.com",
     },
   ];
 
   export const skills = [
     {
-      title: "Languages",
-      description:
-        "A technology company that builds economic infrastructure for the internet.",
-      link: "https://stripe.com",
+      title: "Programming Languages",
+      description: () => {
+        return (
+          <ul>
+            <li>Python</li>
+            <li>JavaScript</li>
+            <li>C++</li>
+            <li>Java</li>
+          </ul>
+        );
+      },
     },
     {
       title: "Web Development",
-      description:
-        "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
-      link: "https://netflix.com",
+      description: () => {
+        return (
+          <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>Astro</li>
+            <li>Tailwind</li>
+            <li>React</li>
+          </ul>
+        );
+      },
     },
     {
-      title: "Software Development Tools",
-      description:
-        "A multinational technology company that specializes in Internet-related services and products.",
-      link: "https://google.com",
+      title: "Tools and Platforms",
+      description: () => {
+        return (
+          <ul>
+            <li>Git</li>
+            <li>VS Code</li>
+            <li>Gitlab</li>
+          </ul>
+        );
+      },
     },
     {
-      title: "Specialised Technologies",
-      description:
-        "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
-      link: "https://meta.com",
+      title: "Game Development",
+      description: () => {
+        return (
+          <ul>
+            <li>Unreal Engine 4</li>
+          </ul>
+        );
+      },
     },
     {
-      title: "Amazon",
-      description:
-        "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
-      link: "https://amazon.com",
+      title: "Robotics and Embedded Systems",
+      description: () => {
+        return (
+          <ul>
+            <li>ROS</li>
+            <li>SLAM</li>
+            <li>Arduino</li>
+            <li>Raspberry Pi</li>
+          </ul>
+        );
+      },
     },
     {
-      title: "Microsoft",
-      description:
-        "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
-      link: "https://microsoft.com",
+      title: "Machine Learning and AI",
+      description: () => {
+        return (
+          <ul>
+            <li>TensorFlow</li>
+          </ul>
+        );
+      },
     },
   ];

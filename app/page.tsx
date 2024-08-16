@@ -3,11 +3,10 @@
 import { navItems } from "@/data";
 
 import Hero from "@/components/Hero";
-import Grid from "@/components/Grid";
+import RecentProjects from "@/components/Grid";
 import Footer from "@/components/Footer";
 import Clients from "@/components/Clients";
 import Experience from "@/components/Experience";
-import RecentProjects from "@/components/RecentProjects";
 import { FloatingNav } from "@/components/ui/FloatingNavbar";
 import { TracingBeam } from "@/components/ui/TracingBeam";
 import { useEffect, useState } from "react";
@@ -28,7 +27,7 @@ const Home = () => {
         {!isMobile ? (
           <TracingBeam>
             <Hero />
-            <Grid />
+            <RecentProjects />
             <Skills />
             <Clients />
             <Experience />
@@ -37,7 +36,7 @@ const Home = () => {
         ) : (
           <>
             <Hero />
-            <Grid />
+            <RecentProjects />
             <Skills />
             <Clients />
             <Experience />

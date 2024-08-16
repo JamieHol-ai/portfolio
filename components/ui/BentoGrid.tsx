@@ -8,7 +8,6 @@ import { IoCopyOutline, IoLink } from "react-icons/io5";
 import Lottie from "react-lottie";
 import { cn } from "@/lib/utils";
 import { BackgroundGradientAnimation } from "./GradientBg";
-import GridGlobe from "./GridGlobe";
 import animationData from "@/data/confetti.json";
 import MagicButton from "../MagicButton";
 
@@ -71,7 +70,7 @@ export const BentoGridItem = ({
   };
 
   const handleCopy = () => {
-    const text = "hsu@jsmastery.pro";
+    const text = "jamieholroyde@gmail.com";
     navigator.clipboard.writeText(text);
     setCopied(true);
   };
@@ -133,7 +132,7 @@ export const BentoGridItem = ({
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[500px]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
+              className="w-full max-w-[500px]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-[#10132e] sm:rounded-3xl overflow-hidden"
             >
               <motion.div layoutId={`image-${active.title}-${id}`}>
                 <Image
@@ -259,13 +258,13 @@ export const BentoGridItem = ({
             layoutId={`title-${title}-${id}`}
             >{title}</motion.h2>
 
-          {/* for the github 3d globe */}
-          {id === 2 && <GridGlobe />}
+          {/* for the github 3d globe }
+          {id === 2 && <GridGlobe />*/}
 
-          {/* Tech stack list div */}
+          {/* Tech stack list div }
           {id === 3 && (
             <div className="flex gap-1 lg:gap-5 w-fit absolute -right-3 lg:-right-2">
-              {/* tech stack lists */}
+              {/* tech stack lists }
               <div className="flex flex-col gap-3 md:gap-3 lg:gap-8">
                 {leftLists.map((item, i) => (
                   <span
@@ -291,7 +290,7 @@ export const BentoGridItem = ({
                 ))}
               </div>
             </div>
-          )}
+          )*/}
           {id === 6 && (
             <div className="mt-5 relative">
               {/* button border magic from tailwind css buttons  */}
