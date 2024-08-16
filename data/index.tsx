@@ -178,29 +178,29 @@ export const navItems = [
   export const workExperience = [
     {
       id: 1,
-      title: "Frontend Engineer Intern",
-      desc: "Assisted in the development of a web-based platform using React.js, enhancing interactivity.",
+      title: "University Stuff",
+      desc: "Talk about course, content and projects",
       className: "md:col-span-2",
       thumbnail: "/exp1.svg",
     },
     {
       id: 2,
-      title: "Mobile App Dev - JSM Tech",
-      desc: "Designed and developed mobile app for both iOS & Android platforms using React Native.",
+      title: "EUFS",
+      desc: "Talk about the society, projects and roles",
       className: "md:col-span-2", // change to md:col-span-2
       thumbnail: "/exp2.svg",
     },
     {
       id: 3,
-      title: "Freelance App Dev Project",
-      desc: "Led the dev of a mobile app for a client, from initial concept to deployment on app stores.",
+      title: "Freelancer",
+      desc: "Studycat stuff, things with Jono, other projects",
       className: "md:col-span-2", // change to md:col-span-2
       thumbnail: "/exp3.svg",
     },
     {
       id: 4,
-      title: "Lead Frontend Developer",
-      desc: "Developed and maintained user-facing features using modern frontend technologies.",
+      title: "General non-coding work",
+      desc: "Gym, F1, music, etc",
       className: "md:col-span-2",
       thumbnail: "/exp4.svg",
     },
@@ -270,6 +270,7 @@ export const navItems = [
         return (
           <ul>
             <li>Unreal Engine 4</li>
+            <li>Unity</li>
           </ul>
         );
       },
