@@ -110,7 +110,7 @@ export const navItems = [
     },
     {
       id: 6,
-      title: "Do you want to start a project together?",
+      title: "Want to start a project together?",
       description: "",
       className: "lg:col-span-2 md:col-span-3 md:row-span-1",
       imgClassName: "",
@@ -126,7 +126,7 @@ export const navItems = [
         "Working with Jamie was great (Hopefull)",
       name: "Lesley Ellis",
       title: "Managing Trustee at Cromar Future Group, Charity SC04703",
-      image: "/testimonials/profile.svg",
+      image: "/testimonials/???.jpg",
     },
     {
       quote:
