@@ -29,7 +29,6 @@ const Home = () => {
           <TracingBeam>
             <Hero />
             <Grid />
-            <RecentProjects />
             <Skills />
             <Clients />
             <Experience />
@@ -39,7 +38,6 @@ const Home = () => {
           <>
             <Hero />
             <Grid />
-            <RecentProjects />
             <Skills />
             <Clients />
             <Experience />
