@@ -299,3 +299,11 @@ export const navItems = [
       },
     },
   ];
+
+  export const heroProjects = [
+    {
+      title: "Studycat Library",
+      thumbnail:
+        "/Projects/Library.svg",
+    },
+  ];
