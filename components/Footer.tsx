@@ -18,7 +18,7 @@ const Footer = () => {
       </div>
       <div className="flex flex-col items-center">
         <h1 className="heading lg:max-w-[45vw]">
-          Let's bring your <FlipWords words={words} className="text-purple"/> <br/>to life
+          Let's bring your<br/> <FlipWords words={words} className="text-purple"/><br/>to life
         </h1>
         <p className="text-white-200 md:mt-10 my-5 text-center">
           Get in contact with me to discuss your project, or to ask any questions

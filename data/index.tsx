@@ -18,35 +18,24 @@ export const projects = [
     titleClassName: "justify-start",
     img: "/Projects/Library.svg",
     spareImg: "",
-    link: "https://www.google.com",
     content: () => {
       return (
         <div>
           <strong>Web Application Development<br/></strong>
           <p>
-            I developed a user-friendly digital library web application using React, Astro, and Tailwind CSS. The primary objective was to create an efficient and engaging way to display the books, videos, and songs produced by the company. The application was designed with a simple, child-friendly interface to ensure accessibility and engagement for young users. A key feature was the ability to update the library content without needing to update the app itself, addressing the time constraints of the app development team.
-          </p>
-
-          <strong>Teamwork and Skills Development<br/></strong>
-          <p>
-            Working with a diverse team, I enhanced my ability to collaborate effectively in a group setting, improving both my communication and problem-solving skills. Regular feedback sessions and collaborative decision-making processes were integral to the successful completion of the project, fostering a supportive and innovative environment.
+            Developed a user-friendly digital library web app using React, Astro, and Tailwind CSS, with a child-friendly interface and the ability to update content without app updates.<b/>
+            This project enhanced my collaboration, communication, and problem-solving skills by working with a diverse team and engaging in regular feedback and decision-making processes.
           </p>
 
           <strong>Tools and Technologies Used<br/></strong>
           <ul>
-            <li>
-              <strong>Design and Development:</strong> Utilized Figma for design prototyping, with React as the primary language for building dynamic user interfaces and Astro for fast, modern web development.
-            </li>
-            <li>
-              <strong>Styling and Frameworks:</strong> Implemented Tailwind CSS for efficient styling.
-            </li>
-            <li>
-              <strong>Project Management:</strong> Employed Zenhub for task management and progress tracking, ensuring that project milestones were met efficiently.
-            </li>
+            <li><strong>Design and Development:</strong> Figma, React, and Astro</li>
+            <li><strong>Styling and Frameworks:</strong> Tailwind CSS</li>
+            <li><strong>Project Management:</strong> Zenhub</li>
           </ul>
 
           <p>
-            This experience not only allowed me to contribute to impactful projects but also enriched my professional skills in a collaborative and innovative environment.
+            This project enriched my professional skills in a collaborative and innovative environment.
           </p>
         </div>
       );
@@ -61,40 +50,24 @@ export const projects = [
     titleClassName: "justify-end",
     img: "/grid.svg",
     spareImg: "",
-    link: "https://www.google.com",
+    link: "https://github.com/JamieHol-ai/3D-Room-Scanner",
     content: () => {
       return (
         <div>
-          <h2>Project Summary</h2>
+          <strong>Development<br/></strong>
           <p>
-            The aim of the project was to design and build an affordable 3D room scanner capable of scanning spaces within a 180-degree field of view. This objective was successfully achieved, allowing users to gain an accurate representation of the scanned space through the constructed images. Key accomplishments included achieving the required range of movement, obtaining and processing raw data from a distance sensor, and displaying the scanned data effectively.
+            For this project I designed and built an affordable 3D room scanner with a 180-degree field of view, achieving accurate space representation through efficient data collection and visualisation.
+            I used an Arduino with a pan/tilt unit and infrared sensor for data collection, and a computer for processing and display.
           </p>
-
-          <h2>Methodology</h2>
-          <p>
-            The project utilized an Arduino connected to a pan/tilt unit and an infrared sensor to obtain values. The computer was responsible for processing and displaying these values. This setup allowed for efficient data collection and visualization.
-          </p>
-
-          <h2>Challenges Overcome</h2>
+          <strong>Skills and knowledge gained<br/></strong>
           <ul>
-            <li>Managing pulse width limits</li>
-            <li>Correcting time lag and baud rate issues</li>
-            <li>Effectively utilizing the serial port for communication</li>
-          </ul>
-
-          <h2>Skills and Knowledge Gained</h2>
-          <ul>
-            <li>Understanding of infrared and ultrasonic sensors</li>
-            <li>Experience with micro-controllers and micro-computers</li>
-            <li>Basic Python and C++ programming skills</li>
-            <li>Ability to construct circuits with various components</li>
-            <li>Conversion of spherical to Cartesian coordinates</li>
-            <li>Creation of circuit diagrams and research into device reliability</li>
-            <li>Insights into how surface textures affect reflectivity</li>
+            <li>Understanding of sensors and micro-controllers</li>
+            <li>Python and C++ programming skills</li>
+            <li>Circuit construction and coordinate conversion</li>
           </ul>
 
           <p>
-            This project enhanced my scientific skillset and deepened my understanding of waves, which is foundational in physics. It also improved my time management, organizational, and report writing skills.
+            This project enhanced my scientific skills, understanding of waves, and improved my time management, organisational, and report writing abilities.
           </p>
         </div>
       );
@@ -109,35 +82,23 @@ export const projects = [
     titleClassName: "",
     img: "/Projects/OSS.png", // Change to a 3D image of a racecar
     spareImg: "",
-    link: "https://www.google.com",
     content: () => {
       return (
         <div>
-          <h2>Project Summary</h2>
+          <strong>Project Summary<br/></strong>
           <p>
-            This project involved setting up a new Optical Speed Sensor and integrating it with an existing self-driving autonomous race car. The primary benefit of this integration was achieving greater accuracy in speed measurements, enhancing positioning accuracy by supplementing wheel odometry data.
+            Integrated a new Optical Speed Sensor with a self-driving race car to enhance speed measurement accuracy and improve positioning by supplementing wheel odometry.
+            This involved utilising CAN protocols for communication between the sensor and race car systems, developing templates for seamless integration.
+            To do this I had to collaborate with older peers, enhancing communication and problem-solving skills, and learning to convey technical information effectively.
           </p>
-
-          <h2>Technical Implementation</h2>
-          <p>
-            The project required the use of CAN protocols to facilitate communication between the Optical Speed Sensor and the race car's systems. I also developed compatible templates to ensure seamless integration and data exchange.
-          </p>
-
-          <h2>Collaboration and Skills Development</h2>
-          <p>
-            Throughout the project, I collaborated extensively with older peers, which significantly enhanced my communication and problem-solving skills. This experience taught me how to effectively convey technical information and work collaboratively to overcome challenges.
-          </p>
-
-          <h2>Skills and Knowledge Gained</h2>
+          <strong>Skills and Knowledge Gained<br/></strong>
           <ul>
-            <li>Understanding of CAN protocols and their application in automotive systems</li>
-            <li>Experience in developing integration templates for sensor communication</li>
-            <li>Enhanced communication and problem-solving abilities through peer collaboration</li>
-            <li>Improved understanding of autonomous vehicle systems and sensor integration</li>
+            <li>Understanding of CAN protocols and automotive systems</li>
+            <li>Experience in sensor communication integration</li>
+            <li>Knowledge of autonomous vehicle systems</li>
           </ul>
-
           <p>
-            This project not only improved the performance of the autonomous race car but also enriched my technical and interpersonal skills, preparing me for future challenges in the field of autonomous systems.
+            This project improved the race car's performance and enriched my technical and interpersonal skills for future challenges in autonomous systems.
           </p>
         </div>
       );
@@ -150,32 +111,26 @@ export const projects = [
     className: "lg:col-span-2 md:col-span-3 md:row-span-1",
     imgClassName: "",
     titleClassName: "justify-start",
-    img: "/Projects/PlanetaryOrbits.png", //TODO - change to a gif of the planets orbiting
-    spareImg: "/grid.svg", //TODO - add commets to the background
-    link: "https://www.google.com",
+    img: "/Projects/PlanetaryOrbits.png",
+    spareImg: "/grid.svg",
+    link: "https://github.com/JamieHol-ai/planetary-orbits-simulation",
     content: () => {
       return (
         <div>
-          <h2>Project Summary</h2>
+          <strong>Project Summary<br/></strong>
           <p>
-            This project involved simulating planetary orbits using Python, with a focus on achieving mathematical accuracy. The simulation utilized Kepler's laws to calculate the positions of the planets, providing a realistic representation of their movements.
+            Simulated planetary orbits using Python, focusing on mathematical accuracy through Kepler's laws for realistic planetary movement representation.
+            Implemented in Python to model celestial motions, applying Kepler's laws for accurate elliptical orbits and varying speeds.
           </p>
-
-          <h2>Technical Implementation</h2>
-          <p>
-            The project was implemented in Python, leveraging its computational capabilities to model the complex motions of celestial bodies. Kepler's laws were applied to ensure that the simulation accurately reflected the elliptical orbits and varying speeds of the planets.
-          </p>
-
-          <h2>Skills and Knowledge Gained</h2>
+          <strong>Skills and Knowledge Gained<br/></strong>
           <ul>
-            <li>Proficiency in using Python for scientific simulations</li>
-            <li>Understanding of Kepler's laws and their application in orbital mechanics</li>
+            <li>Proficiency in Python for scientific simulations</li>
+            <li>Understanding of Kepler's laws and orbital mechanics</li>
             <li>Experience in mathematical modeling and simulation accuracy</li>
-            <li>Enhanced problem-solving skills through debugging and optimizing code</li>
           </ul>
 
           <p>
-            This project not only deepened my understanding of orbital mechanics but also enhanced my programming skills, particularly in using Python for scientific applications. It provided valuable insights into the mathematical principles governing planetary motion.
+            This project deepened my understanding of orbital mechanics and enhanced my programming skills in Python for scientific applications.
           </p>
         </div>
       );
@@ -190,30 +145,24 @@ export const projects = [
     titleClassName: "justify-center md:justify-start lg:justify-center",
     img: "/Projects/flappyBird.svg",
     spareImg: "/grid.svg",
-    link: "https://www.google.com",
     content: () => {
       return (
         <div>
-          <h2>Project Summary</h2>
+          <strong>Project Summary<br/></strong>
           <p>
-            This project involves developing an AI that learns to play Flappy Bird using TensorFlow and Python. The AI simulates neural networks and evolves through generations of 10 birds at a time, learning to navigate the game environment effectively.
+            Developed an AI to play Flappy Bird using TensorFlow and Python, simulating neural networks that evolve through generations of 10 birds to navigate the game.
+            Utilised TensorFlow to train neural networks, employing a genetic algorithm to evolve the AI by selecting and mutating the best-performing birds.
           </p>
 
-          <h2>Technical Implementation</h2>
-          <p>
-            The project utilizes TensorFlow to create and train neural networks for each bird. The AI employs a genetic algorithm to simulate evolution, selecting the best-performing birds from each generation and introducing mutations to improve performance. The neural networks decide when a bird should flap based on inputs from the game environment.
-          </p>
-
-          <h2>Skills and Knowledge Gained</h2>
+          <strong>Skills and Knowledge Gained<br/></strong>
           <ul>
-            <li>Proficiency in using TensorFlow for neural network development</li>
-            <li>Understanding of genetic algorithms and their application in AI</li>
-            <li>Experience in simulating neural networks for game AI</li>
-            <li>Enhanced communication and problem-solving abilities through peer collaboration</li>
+            <li>Proficiency in TensorFlow for neural network development</li>
+            <li>Understanding of genetic algorithms in AI</li>
+            <li>Experience in game AI simulation</li>
           </ul>
 
           <p>
-            This project not only improved my technical skills in AI and machine learning but also provided valuable insights into the processes of neural network training and genetic evolution.
+            This project improved my skills in AI and machine learning, offering insights into neural network training and genetic evolution.
           </p>
         </div>
       );
@@ -243,7 +192,7 @@ export const testimonials = [
     quote:
       "Jamie has demonstrated exceptional capabilities in designing and developing complex software projects, mastering new technologies, and mentoring others. His achievements highlight his outstanding abilities and potential.",
     name: "David Harper",
-    title: "??? not putting retired",
+    title: "Former Tech Lead Manager at Google",
     image: "/testimonials/dave.jpeg",
   }, // add quotes from jono, jake, mark, and maybe meet and code?
 ];
@@ -273,21 +222,21 @@ export const workExperience = [
   {
     id: 1,
     title: "Edinburgh University",
-    desc: "As a second-year Masters student in Informatics at the University of Edinburgh, I am focused on specializing in AI or robotics. The curriculum and opportunities, like a guest lecture by Haskell founder Philip Wadler, have enriched my understanding and inspired further exploration in these fields.",
+    desc: "As a second-year Masters student in Informatics at the University of Edinburgh, I am focused on specialising in AI or robotics. The curriculum and opportunities, like a guest lecture by Haskell founder Philip Wadler, have enriched my understanding and inspired further exploration in these fields.",
     className: "md:col-span-2",
     thumbnail: "/experience/university.png",
   },
   {
     id: 2,
     title: "Formula Student",
-    desc: "In FS, I am part of a 150+ member team focused on designing a high-performance race car. This experience has greatly improved my communication and teamwork skills, emphasizing the importance of collaboration in achieving shared goals.",
+    desc: "In FS, I am part of a 150+ member team focused on designing a high-performance race car. This experience has greatly improved my communication and teamwork skills, emphasising the importance of collaboration in achieving shared goals.",
     className: "md:col-span-2", // change to md:col-span-2
     thumbnail: "/experience/formulaStudent.png",
   },
   {
     id: 3,
     title: "Freelancing",
-    desc: "Freelancing has offered me the chance to travel internationally and meet new people, while engaging in fascinating projects. This experience has broadened my horizons and enriched my professional journey.",
+    desc: "Freelancing has offered me the chance to travel internationally and meet new people, while engaging in fascinating projects. This experience has broadened my horisons and enriched my professional journey.",
     className: "md:col-span-2", // change to md:col-span-2
     thumbnail: "/experience/freelance.png",
   },
