@@ -13,10 +13,10 @@ export const projects = [
     id: 1,
     title: "Digital Library",
     description: "Built using React.js, Astro and Tailwind CSS",
-    className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-[60vh]",
-    imgClassName: "w-full h-full",
-    titleClassName: "justify-end",
-    img: "/b1.svg", //TODO change to an image of the libary on an ipad
+    className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-1/2",
+    imgClassName: "w-full bottom-0 absolute",
+    titleClassName: "justify-start",
+    img: "/Projects/Library.svg",
     spareImg: "",
     link: "https://www.google.com",
     content: () => {
@@ -59,7 +59,7 @@ export const projects = [
     className: "lg:col-span-2 md:col-span-3 md:row-span-2",
     imgClassName: "bottom-0 absolute h-1/2",
     titleClassName: "justify-end",
-    img: "/Projects/Room Scanner.png",
+    img: "/grid.svg",
     spareImg: "",
     link: "https://www.google.com",
     content: () => {
@@ -102,12 +102,12 @@ export const projects = [
   },
   {
     id: 3,
-    title: "Optical Speed Sensor",
-    description: "Using C++ to interface with a race car",
+    title: "Optical Speed Sensor Integration",
+    description: "",
     className: "lg:col-span-2 md:col-span-3 md:row-span-2",
     imgClassName: "",
-    titleClassName: "justify-center",
-    img: "", // Change to a 3D image of a racecar
+    titleClassName: "",
+    img: "/Projects/OSS.png", // Change to a 3D image of a racecar
     spareImg: "",
     link: "https://www.google.com",
     content: () => {
@@ -150,8 +150,8 @@ export const projects = [
     className: "lg:col-span-2 md:col-span-3 md:row-span-1",
     imgClassName: "",
     titleClassName: "justify-start",
-    img: "/grid.svg", //TODO - change to a gif of the planets orbiting
-    spareImg: "/b4.svg", //TODO - add commets to the background
+    img: "/Projects/PlanetaryOrbits.png", //TODO - change to a gif of the planets orbiting
+    spareImg: "/grid.svg", //TODO - add commets to the background
     link: "https://www.google.com",
     content: () => {
       return (
@@ -188,7 +188,7 @@ export const projects = [
     className: "md:col-span-3 md:row-span-2",
     imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
     titleClassName: "justify-center md:justify-start lg:justify-center",
-    img: "/b5.svg", //TODO - change to flappy bird image
+    img: "/Projects/flappyBird.svg",
     spareImg: "/grid.svg",
     link: "https://www.google.com",
     content: () => {
@@ -275,28 +275,28 @@ export const workExperience = [
     title: "Edinburgh University",
     desc: "As a second-year Masters student in Informatics at the University of Edinburgh, I am focused on specializing in AI or robotics. The curriculum and opportunities, like a guest lecture by Haskell founder Philip Wadler, have enriched my understanding and inspired further exploration in these fields.",
     className: "md:col-span-2",
-    thumbnail: "/exp1.svg",
+    thumbnail: "/experience/university.png",
   },
   {
     id: 2,
     title: "Formula Student",
     desc: "In FS, I am part of a 150+ member team focused on designing a high-performance race car. This experience has greatly improved my communication and teamwork skills, emphasizing the importance of collaboration in achieving shared goals.",
     className: "md:col-span-2", // change to md:col-span-2
-    thumbnail: "/exp2.svg",
+    thumbnail: "/experience/formulaStudent.png",
   },
   {
     id: 3,
     title: "Freelancing",
     desc: "Freelancing has offered me the chance to travel internationally and meet new people, while engaging in fascinating projects. This experience has broadened my horizons and enriched my professional journey.",
     className: "md:col-span-2", // change to md:col-span-2
-    thumbnail: "/exp3.svg",
+    thumbnail: "/experience/freelance.png",
   },
   {
     id: 4,
     title: "Personal Interests",
     desc: "Outside of work, I enjoy staying active by going to the gym and have recently developed an interest in Formula 1. Music is another passion of mine, providing a great source of relaxation and inspiration.",
     className: "md:col-span-2",
-    thumbnail: "/exp4.svg",
+    thumbnail: "/experience/other.png",
   },
 ];
   
@@ -398,7 +398,32 @@ export const heroProjects = [
   {
     title: "Studycat Library",
     thumbnail:
-      "/Projects/Library.svg",
+      "/Projects/LibraryHero.svg",
+  },
+  {
+    title: "Room Scanner",
+    thumbnail:
+      "/Projects/Room Scanner.png",
+  },
+  {
+    title: "Planetary Orbit Simulator",
+    thumbnail:
+      "/Projects/Planetary-Orbits.png",
+  },
+  {
+    title: "Formula Student",
+    thumbnail:
+      "/Projects/vs-code.png",
+  },
+  {
+    title: "Formula Student",
+    thumbnail:
+      "/Projects/slam-analysis.png",
+  },
+  {
+    title: "Studycat Library",
+    thumbnail:
+      "/Projects/LibraryHero.svg",
   },
   {
     title: "Room Scanner",
