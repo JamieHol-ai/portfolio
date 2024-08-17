@@ -21,7 +21,7 @@ export const TextRevealCard = ({
   const [isMouseOver, setIsMouseOver] = useState(false);
 
   const {scrollYProgress} = useScroll();
-  const mappedWidth = useTransform(scrollYProgress, [0.92, 1], [0, 100]);
+  const mappedWidth = useTransform(scrollYProgress, [0.98, 1], [0, 100]);
 
   useEffect(() => {
     if (cardRef.current) {

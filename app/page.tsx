@@ -11,7 +11,6 @@ import { FloatingNav } from "@/components/ui/FloatingNavbar";
 import { TracingBeam } from "@/components/ui/TracingBeam";
 import { useEffect, useState } from "react";
 import { Skills } from "@/components/Skills";
-import {Contact} from "@/components/Contact";
 
 const Home = () => {
   const [isMobile, setIsMobile] = useState(false);
