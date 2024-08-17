@@ -272,7 +272,7 @@ export const companies = [
 export const workExperience = [
   {
     id: 1,
-    title: "Edinburgh Univserity",
+    title: "Edinburgh University",
     desc: "As a second-year Masters student in Informatics at the University of Edinburgh, I am focused on specializing in AI or robotics. The curriculum and opportunities, like a guest lecture by Haskell founder Philip Wadler, have enriched my understanding and inspired further exploration in these fields.",
     className: "md:col-span-2",
     thumbnail: "/exp1.svg",

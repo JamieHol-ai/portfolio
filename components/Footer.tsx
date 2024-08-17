@@ -1,30 +1,13 @@
 import { socialMedia } from "@/data";
 import MagicButton from "./MagicButton";
 import { FaLocationArrow } from "react-icons/fa6";
-import { motion } from "framer-motion";
-import { LampContainer } from "./ui/lamp";
-import { TextRevealCard } from "./ui/test-reveal-card";
+import { FlipWords } from "./ui/flip-words";
 
 const Footer = () => {
+  const words = ["ideas", "vision", "project"];
   return (
     <footer className="w-full pt-20 pb-10" id="contact">
-      <LampContainer>
-      <motion.h1
-        initial={{ opacity: 0.5, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{
-          delay: 0.3,
-          duration: 0.8,
-          ease: "easeInOut",
-        }}
-        className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
-      >
-        <TextRevealCard
-        text="You have the idea"
-        revealText="I have the skills"
-        ></TextRevealCard>
-      </motion.h1>
-    </LampContainer>
+      
       {/* background grid */}
       <div className="w-full absolute left-0 min-h-96">
         <img
@@ -35,7 +18,7 @@ const Footer = () => {
       </div>
       <div className="flex flex-col items-center">
         <h1 className="heading lg:max-w-[45vw]">
-          Let me help you bring <span className="text-purple">your ideas</span> to life
+          Let's bring your <FlipWords words={words} className="text-purple"/> <br/>to life
         </h1>
         <p className="text-white-200 md:mt-10 my-5 text-center">
           Get in contact with me to discuss your project, or to ask any questions
