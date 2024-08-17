@@ -15,7 +15,7 @@ export const projects = [
     description: "Built using React.js, Astro and Tailwind CSS",
     className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-1/2",
     imgClassName: "w-full bottom-0 absolute",
-    titleClassName: "justify-start",
+    titleClassName: "justify-start bg-slate-950/50",
     img: "/Projects/Library.svg",
     spareImg: "",
     content: () => {
@@ -79,7 +79,7 @@ export const projects = [
     description: "",
     className: "lg:col-span-2 md:col-span-3 md:row-span-2",
     imgClassName: "",
-    titleClassName: "",
+    titleClassName: "bg-slate-950/50",
     img: "/Projects/OSS.png", // Change to a 3D image of a racecar
     spareImg: "",
     content: () => {
@@ -113,7 +113,7 @@ export const projects = [
     titleClassName: "justify-start",
     img: "/Projects/PlanetaryOrbits.png",
     spareImg: "/grid.svg",
-    link: "https://github.com/JamieHol-ai/planetary-orbits-simulation",
+    link: "",
     content: () => {
       return (
         <div>

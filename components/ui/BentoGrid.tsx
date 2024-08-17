@@ -130,7 +130,7 @@ export const BentoGridItem = ({
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-5xl md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-[#10132e] sm:rounded-3xl max-h-fit overflow-hidden"
+              className="w-full max-w-5xl  md:max-h-[90%]  flex flex-col bg-white dark:bg-[#10132e] sm:rounded-3xl max-h-fit overflow-hidden"
             >
               <motion.div layoutId={`image-${active.title}-${id}`}>
                 <Image
@@ -139,12 +139,12 @@ export const BentoGridItem = ({
                   height={200}
                   src={active.img}
                   alt={active.title}
-                  className="w-full h-80 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
+                  className="w-full lg:h-80 sm:rounded-tr-lg md:h-20 sm:rounded-tl-lg object-cover object-top"
                 />
               </motion.div>
 
-              <div>
-                <div className="p-4">
+              <div className="overflow-y-auto overflow-x-hidden">
+                <div className="relative p-4">
                   <motion.h2
                     layoutId={`title-${active.title}-${id}`}
                     className="font-medium text-neutral-700 dark:text-neutral-200 text-base"
@@ -158,24 +158,25 @@ export const BentoGridItem = ({
                     {active.description}
                   </motion.p>
                 </div>
-                <div className="relative px-4">
+                <div className="relative px-4 pb-4">
                   <motion.div
                     layout
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-4 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                    className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-4 sm:pb-2 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
                   >
-                    <div className="overflow-y-auto h-52">
-                      {active.content()}
-                    </div>
 
-                    {active.link && <MagicButton
+                      {active.content()}
+
+                    {active.link && <div className="h-12">
+                      <MagicButton
                       title="View live"
                       icon={<IoLink />}
                       position="right"
                       handleClick={() => window.open(active.link)}
-                      otherClasses="!bg-[#161A31]"/>}
+                      otherClasses="!bg-[#161A31]"/>
+                      </div>}
                   </motion.div>
                 </div>
               </div>
