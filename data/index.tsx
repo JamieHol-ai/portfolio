@@ -22,17 +22,17 @@ export const projects = [
     content: () => {
       return (
         <div>
-          <h2>Web Application Development</h2>
+          <strong>Web Application Development<br/></strong>
           <p>
             I developed a user-friendly digital library web application using React, Astro, and Tailwind CSS. The primary objective was to create an efficient and engaging way to display the books, videos, and songs produced by the company. The application was designed with a simple, child-friendly interface to ensure accessibility and engagement for young users. A key feature was the ability to update the library content without needing to update the app itself, addressing the time constraints of the app development team.
           </p>
 
-          <h2>Teamwork and Skills Development</h2>
+          <strong>Teamwork and Skills Development<br/></strong>
           <p>
             Working with a diverse team, I enhanced my ability to collaborate effectively in a group setting, improving both my communication and problem-solving skills. Regular feedback sessions and collaborative decision-making processes were integral to the successful completion of the project, fostering a supportive and innovative environment.
           </p>
 
-          <h2>Tools and Technologies Used</h2>
+          <strong>Tools and Technologies Used<br/></strong>
           <ul>
             <li>
               <strong>Design and Development:</strong> Utilized Figma for design prototyping, with React as the primary language for building dynamic user interfaces and Astro for fast, modern web development.

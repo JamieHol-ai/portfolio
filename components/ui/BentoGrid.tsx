@@ -55,8 +55,6 @@ export const BentoGridItem = ({
 }) => {
   const [active, setActive] = useState(null);
   const ref = useRef<HTMLDivElement>(null);
-  const leftLists = ["ReactJS", "Express", "Typescript"];
-  const rightLists = ["VueJS", "NuxtJS", "GraphQL"];
 
   const [copied, setCopied] = useState(false);
 
@@ -132,7 +130,7 @@ export const BentoGridItem = ({
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[500px]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-[#10132e] sm:rounded-3xl overflow-hidden"
+              className="w-full max-w-5xl md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-[#10132e] sm:rounded-3xl max-h-fit overflow-x-hidden overflow-y-auto"
             >
               <motion.div layoutId={`image-${active.title}-${id}`}>
                 <Image
@@ -146,7 +144,8 @@ export const BentoGridItem = ({
               </motion.div>
 
               <div>
-                <div className="p-4">
+              <div className="p-4 flex justify-between items-start">
+                <div className="flex flex-col justify-start">
                   <motion.h2
                     layoutId={`title-${active.title}-${id}`}
                     className="font-medium text-neutral-700 dark:text-neutral-200 text-base"
@@ -160,6 +159,16 @@ export const BentoGridItem = ({
                     {active.description}
                   </motion.p>
                 </div>
+                <div className="flex justify-end">
+                  <MagicButton
+                    title="View live"
+                    icon={<IoLink />}
+                    position="right"
+                    handleClick={() => window.open(active.link)}
+                    otherClasses="!bg-[#161A31]"
+                  />
+                </div>
+              </div>
                 <div className="relative px-4">
                   <motion.div
                     layout
@@ -168,16 +177,7 @@ export const BentoGridItem = ({
                     exit={{ opacity: 0 }}
                     className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-4 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
                   >
-                    {typeof active.content === "function"
-                      ? active.content()
-                      : active.content}
-
-                    <MagicButton
-                      title="View live"
-                      icon={<IoLink />}
-                      position="right"
-                      handleClick={() => window.open(active.link)}
-                      otherClasses="!bg-[#161A31]"/>
+                    {active.content()}
                   </motion.div>
                 </div>
               </div>
