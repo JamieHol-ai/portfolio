@@ -106,82 +106,84 @@ export const BentoGridItem = ({
       </AnimatePresence>
       <AnimatePresence>
         {active && typeof active === "object" ? (
-          <div className="fixed inset-0  grid place-items-center z-[100]">
-            <motion.button
-              key={`button-${active.title}-${id}`}
-              layout
-              initial={{
-                opacity: 0,
-              }}
-              animate={{
-                opacity: 1,
-              }}
-              exit={{
-                opacity: 0,
-                transition: {
-                  duration: 0.05,
-                },
-              }}
-              className="flex absolute top-2 right-2 lg:hidden items-center justify-center bg-white rounded-full h-6 w-6"
-              onClick={() => setActive(null)}
-            >
-              <CloseIcon />
-            </motion.button>
+          <div className="fixed inset-0 grid place-items-center z-[100] sm:h-80 lg:h-auto">
+          <motion.button
+            key={`button-${active.title}-${id}`}
+            layout
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            exit={{
+              opacity: 0,
+              transition: {
+                duration: 0.05,
+              },
+            }}
+            className="flex absolute top-2 right-2 lg:hidden items-center justify-center bg-white rounded-full h-6 w-6"
+            onClick={() => setActive(null)}
+          >
+            <CloseIcon />
+          </motion.button>
+          <motion.div
+            layoutId={`card-${active.title}-${id}`}
+            ref={ref}
+            className="w-full h-full max-w-5xl md:max-h-[90%] flex flex-col bg-white dark:bg-[#10132e] sm:rounded-3xl overflow-hidden"
+          >
             <motion.div
-              layoutId={`card-${active.title}-${id}`}
-              ref={ref}
-              className="w-full max-w-5xl  md:max-h-[90%]  flex flex-col bg-white dark:bg-[#10132e] sm:rounded-3xl max-h-fit overflow-hidden"
+              layoutId={`image-${active.title}-${id}`}
+              className="flex-shrink-0"
             >
-              <motion.div layoutId={`image-${active.title}-${id}`}>
-                <img
-                  priority
-                  width={200}
-                  height={200}
-                  src={active.img}
-                  alt={active.title}
-                  className="w-full lg:h-80 sm:rounded-tr-lg md:h-20 sm:rounded-tl-lg object-cover object-top"
-                />
-              </motion.div>
-
-              <div className="overflow-y-auto overflow-x-hidden">
-                <div className="relative p-4">
-                  <motion.h2
-                    layoutId={`title-${active.title}-${id}`}
-                    className="font-medium text-neutral-700 dark:text-neutral-200 text-base"
-                  >
-                    {active.title}
-                  </motion.h2>
-                  <motion.p
-                    layoutId={`description-${active.description}-${id}`}
-                    className="text-neutral-600 dark:text-neutral-400 text-base"
-                  >
-                    {active.description}
-                  </motion.p>
-                </div>
-                <div className="relative px-4 pb-4">
-                  <motion.div
-                    layout
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-4 sm:pb-2 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
-                  >
-
-                      {active.content()}
-
-                    {active.link && <div className="h-12">
-                      <MagicButton
-                      title="View live"
-                      icon={<IoLink />}
-                      position="right"
-                      handleClick={() => window.open(active.link)}
-                      otherClasses="!bg-[#161A31]"/>
-                      </div>}
-                  </motion.div>
-                </div>
-              </div>
+              <img
+                src={active.img}
+                alt={active.title}
+                className="w-full h-auto max-h-[420px] sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
+              />
             </motion.div>
-          </div>
+        
+            <div className="flex-grow">
+              <div className="relative p-4">
+                <motion.h2
+                  layoutId={`title-${active.title}-${id}`}
+                  className="font-medium text-neutral-700 dark:text-neutral-200 text-base"
+                >
+                  {active.title}
+                </motion.h2>
+                <motion.p
+                  layoutId={`description-${active.description}-${id}`}
+                  className="text-neutral-600 dark:text-neutral-400 text-base"
+                >
+                  {active.description}
+                </motion.p>
+              </div>
+              <div className="relative px-4 pb-4">
+                <motion.div
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-neutral-600 text-xs md:text-sm lg:text-base flex flex-col items-start gap-4 dark:text-neutral-400 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                >
+                  {active.content()}
+        
+                  {active.link && (
+                    <div className="">
+                      <MagicButton
+                        title="View live"
+                        icon={<IoLink />}
+                        position="right"
+                        handleClick={() => window.open(active.link)}
+                        otherClasses="!bg-[#161A31]"
+                      />
+                    </div>
+                  )}
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
         ) : null}
       </AnimatePresence>
     <motion.div

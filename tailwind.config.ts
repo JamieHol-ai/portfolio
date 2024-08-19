@@ -76,6 +76,30 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      screens: {
+        'min-range': {'min': '0px', 'max': '639px'},
+        // => @media (min-width: 0px, max-width: 639px) { ... }
+        'xs': '390px',
+        // => @media (min-width: 390px) { ... }
+        'sm': '640px',
+        // => @media (min-width: 640px) { ... }
+        'md': '744px',
+        // => @media (min-width: 768px) { ... }
+        'lg': '1024px',
+        // => @media (min-width: 1024px) { ... }
+        'xl': '1440px',
+        // => @media (min-width: 1440px) { ... }
+        '2xl': '1536px',
+        // => @media (min-width: 1536px) { ... }
+        '3xl': '1920px',
+        // => @media (min-width: 1920px) { ... }
+        '4xl': '2560px',  
+        // => @media (min-width: 2560px) { ... }
+        'phone-landscape': { 'raw': '(min-device-width: 320px) and (max-device-width: 812px) and (orientation: landscape)' },
+        // => @media (min-device-width: 320px) and (max-device-width: 812px) and (orientation: landscape) { ... }
+        'tablet-landscape': { 'raw': '(min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape)' },
+        // => @media (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) { ... }
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
