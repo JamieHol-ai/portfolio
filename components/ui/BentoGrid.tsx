@@ -133,7 +133,7 @@ export const BentoGridItem = ({
               className="w-full max-w-5xl  md:max-h-[90%]  flex flex-col bg-white dark:bg-[#10132e] sm:rounded-3xl max-h-fit overflow-hidden"
             >
               <motion.div layoutId={`image-${active.title}-${id}`}>
-                <Image
+                <img
                   priority
                   width={200}
                   height={200}

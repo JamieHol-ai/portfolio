@@ -7,7 +7,7 @@ const Experience = () => {
   return (
     <section className="py-20 w-full" id="about">
       <h1 className="heading">
-        What I spend my <span className="text-purple">time</span> doing
+        How I spend my <span className="text-purple">time</span>
       </h1>
 
       <div className="w-full mt-12 grid lg:grid-cols-4 grid-cols-1 gap-10">

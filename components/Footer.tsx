@@ -18,7 +18,7 @@ const Footer = () => {
       </div>
       <div className="flex flex-col items-center">
         <h1 className="heading lg:max-w-[45vw]">
-          Let's bring your<br/> <FlipWords words={words} className="text-purple"/><br/>to life
+          Let&apos;s bring your<br/> <FlipWords words={words} className="text-purple"/><br/>to life
         </h1>
         <p className="text-white-200 md:mt-10 my-5 text-center">
           Get in contact with me to discuss your project, or to ask any questions
@@ -33,9 +33,13 @@ const Footer = () => {
       </div>
 
       <div className="flex mt-16 md:flex-row flex-col justify-between items-center gap-2">
-        <p className="md:text-base text-sm md:font-normal font-light">
-          Jamie Holroyde
-        </p>
+        <a
+          href="https://github.com/JamieHol-ai/portfolio"
+          key={"Source-code"}
+          className="backdrop-filter backdrop-blur-lg md:text-base text-sm md:font-normal font-light"
+        >
+          <p>View Source Code</p>
+        </a>
 
         <div className="flex items-center md:gap-3 gap-6">
           {socialMedia.map((info) => (

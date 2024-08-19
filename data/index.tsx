@@ -236,14 +236,14 @@ export const workExperience = [
   {
     id: 3,
     title: "Freelancing",
-    desc: "Freelancing has offered me the chance to travel internationally and meet new people, while engaging in fascinating projects. This experience has broadened my horisons and enriched my professional journey.",
+    desc: "Freelancing has offered me the opportunity to travel internationally and meet new people, while engaging in fascinating projects. This experience has broadened my horizons and enriched my professional journey.",
     className: "md:col-span-2", // change to md:col-span-2
     thumbnail: "/experience/freelance.png",
   },
   {
     id: 4,
     title: "Personal Interests",
-    desc: "Outside of work, I enjoy staying active by going to the gym and have recently developed an interest in Formula 1. Music is another passion of mine, providing a great source of relaxation and inspiration.",
+    desc: "Outside of work, I enjoy staying active by going to the gym and have recently developed an interest in Formula 1. Music is another passion of mine; playing both violin and piano provides me with a great source of relaxation and inspiration.",
     className: "md:col-span-2",
     thumbnail: "/experience/other.png",
   },

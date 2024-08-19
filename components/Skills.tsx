@@ -7,7 +7,7 @@ export function Skills() {
         <h1 className="heading">
             Some {" "} 
             <span className="text-purple">skills</span>
-            {" "} I've picked up
+            {" "} I&apos;m developing
         </h1>
         <HoverEffect items={skills}/>
     </section>
