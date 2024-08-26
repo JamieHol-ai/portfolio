@@ -50,7 +50,7 @@ export const projects = [
     titleClassName: "justify-end",
     img: "/grid.svg",
     spareImg: "",
-    link: "https://github.com/JamieHol-ai/3D-Room-Scanner",
+    sourceCode: "https://github.com/JamieHol-ai/3D-Room-Scanner",
     content: () => {
       return (
         <div>
@@ -145,6 +145,8 @@ export const projects = [
     titleClassName: "justify-center md:justify-start lg:justify-center",
     img: "/Projects/flappyBird.svg",
     spareImg: "/grid.svg",
+    sourceCode: "https://github.com/JamieHol-ai/Flappy-Bird",
+    live: "https://jamiehol-ai.github.io/Flappy-Bird/",
     content: () => {
       return (
         <div>

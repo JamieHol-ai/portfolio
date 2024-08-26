@@ -87,6 +87,7 @@ export const BentoGridItem = ({
     }
 
     window.addEventListener("keydown", onKeyDown);
+    console.log("active", active, active?.live);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [active]);
 
@@ -130,20 +131,20 @@ export const BentoGridItem = ({
           <motion.div
             layoutId={`card-${active.title}-${id}`}
             ref={ref}
-            className="w-full h-full max-w-5xl md:max-h-[90%] flex flex-col bg-white dark:bg-[#10132e] sm:rounded-3xl overflow-hidden"
+            className="max-w-6xl lg:max-h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-[#10132e] sm:rounded-3xl"
           >
             <motion.div
               layoutId={`image-${active.title}-${id}`}
-              className="flex-shrink-0"
+              className="shrink"
             >
               <img
                 src={active.img}
                 alt={active.title}
-                className="w-full h-auto max-h-[420px] sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
+                className="max-h-[420px] w-full sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
               />
             </motion.div>
         
-            <div className="flex-grow">
+            <div className="h-fit">
               <div className="relative p-4">
                 <motion.h2
                   layoutId={`title-${active.title}-${id}`}
@@ -167,18 +168,26 @@ export const BentoGridItem = ({
                   className="text-neutral-600 text-xs md:text-sm lg:text-base flex flex-col items-start gap-4 dark:text-neutral-400 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
                 >
                   {active.content()}
-        
-                  {active.link && (
-                    <div className="">
-                      <MagicButton
-                        title="View live"
-                        icon={<IoLink />}
-                        position="right"
-                        handleClick={() => window.open(active.link)}
-                        otherClasses="!bg-[#161A31]"
-                      />
+                  <div className="flex flex-row gap-4">
+                    {active.sourceCode && (
+                        <MagicButton
+                          title="Source code"
+                          icon={<IoLink />}
+                          position="right"
+                            handleClick={() => window.open(active.sourceCode)}
+                          otherClasses="!bg-[#161A31]"
+                        />
+                    )}
+                      {active.live && (
+                          <MagicButton
+                            title="View live"
+                            icon={<IoLink />}
+                            position="right"
+                            handleClick={() => window.open(active.live)}
+                            otherClasses="!bg-[#161A31]"
+                          />
+                      )}
                     </div>
-                  )}
                 </motion.div>
               </div>
             </div>
