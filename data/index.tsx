@@ -204,21 +204,18 @@ export const companies = [
     id: 1,
     name: "Studycat",
     img: "/testimonials/studycat.svg",
-    nameImg: "/testimonials/studycatName.svg",
     link: "https://studycat.com/"
   },
   {
     id: 2,
     name: "Cromar Future Group",
-    img: "/testimonials/EE.jpg",
-    nameImg: "/testimonials/EEName.jpg",
+    img: "/testimonials/EE.svg",
     link: "https://www.futuregroup.org.uk/"
   },
   {
     id: 3,
     name: "Meet and Code",
-    img: "/testimonials/meet_and_code.png",
-    nameImg: "/testimonials/meet_and_codeName.png",
+    img: "/testimonials/meet_and_code.svg",
     link: "https://www.meet-and-code.org/gb/en/"
   },
 ];
@@ -235,14 +232,14 @@ export const workExperience = [
     id: 2,
     title: "Formula Student",
     desc: "In FS, I am part of a 150+ member team focused on designing a high-performance race car. This experience has greatly improved my communication and teamwork skills, emphasising the importance of collaboration in achieving shared goals.",
-    className: "md:col-span-2", // change to md:col-span-2
+    className: "md:col-span-2",
     thumbnail: "/experience/formulaStudent.png",
   },
   {
     id: 3,
     title: "Freelancing",
     desc: "Freelancing has offered me the opportunity to travel internationally and meet new people, while engaging in fascinating projects. This experience has broadened my horizons and enriched my professional journey.",
-    className: "md:col-span-2", // change to md:col-span-2
+    className: "md:col-span-2",
     thumbnail: "/experience/freelance.png",
   },
   {
