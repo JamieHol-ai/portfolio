@@ -205,18 +205,21 @@ export const companies = [
     name: "Studycat",
     img: "/testimonials/studycat.svg",
     nameImg: "/testimonials/studycatName.svg",
+    link: "https://studycat.com/"
   },
   {
     id: 2,
     name: "Cromar Future Group",
     img: "/testimonials/EE.jpg",
     nameImg: "/testimonials/EEName.jpg",
+    link: "https://www.futuregroup.org.uk/"
   },
   {
     id: 3,
     name: "Meet and Code",
     img: "/testimonials/meet_and_code.png",
     nameImg: "/testimonials/meet_and_codeName.png",
+    link: "https://www.meet-and-code.org/gb/en/"
   },
 ];
   
