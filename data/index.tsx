@@ -349,51 +349,61 @@ export const heroProjects = [
   {
     title: "Studycat Library",
     thumbnail:
-      "/Projects/LibraryHero.svg",
+      "/Hero/Library.svg",
   },
   {
     title: "Room Scanner",
     thumbnail:
-      "/Projects/Room Scanner.png",
+      "/Hero/Room Scanner.png",
   },
   {
     title: "Planetary Orbit Simulator",
     thumbnail:
-      "/Projects/Planetary-Orbits.png",
+      "/Hero/Planetary-Orbits.png",
   },
   {
     title: "Formula Student",
     thumbnail:
-      "/Projects/vs-code.png",
+      "/Hero/vs-code.png",
   },
   {
     title: "Formula Student",
     thumbnail:
-      "/Projects/slam-analysis.png",
+      "/Hero/slam-analysis.png",
+  },
+  {
+    title: "Flappy Bird",
+    thumbnail:
+      "/Hero/Flappy-bird.png",
   },
   {
     title: "Studycat Library",
     thumbnail:
-      "/Projects/LibraryHero.svg",
+      "/Hero/Library.svg",
   },
   {
     title: "Room Scanner",
     thumbnail:
-      "/Projects/Room Scanner.png",
+      "/Hero/Room Scanner.png",
   },
   {
     title: "Planetary Orbit Simulator",
     thumbnail:
-      "/Projects/Planetary-Orbits.png",
+      "/Hero/Planetary-Orbits.png",
   },
   {
     title: "Formula Student",
     thumbnail:
-      "/Projects/vs-code.png",
+      "/Hero/vs-code.png",
   },
   {
     title: "Formula Student",
     thumbnail:
-      "/Projects/slam-analysis.png",
+      "/Hero/slam-analysis.png",
+  },
+  {
+    title: "Flappy Bird",
+    thumbnail:
+      "/Hero/Flappy-bird.png",
   },
 ];
