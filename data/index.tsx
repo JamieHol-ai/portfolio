@@ -185,10 +185,10 @@ export const projects = [
 export const testimonials = [
   {
     quote:
-      "Jamie has shown remarkable self-motivation and skill. Despite limited local resources in rural Scotland, he has developed into a highly capable young man, demonstrating his innate talent and dedication to coding.",
-    name: "Lesley Ellis",
-    title: "Managing Trustee at Cromar Future Group, Charity SC04703",
-    image: "/testimonials/les.jpeg",
+      "Jamie was always quick to find solutions and was commited to getting things done. He also presented his ideas confidently and effectively, which made him a great team player. His work ethic is outstanding, and he became a real asset to our team. He's pretty funny too. I highly recommend Jamie—any company would be lucky to have him on board!",
+    name: "Jake Whiddon",
+    title: "Head of Learning Experience @ Studycat",
+    image: "/testimonials/jake.jpeg",
   },
   {
     quote:
@@ -196,7 +196,14 @@ export const testimonials = [
     name: "David Harper",
     title: "Former Tech Lead Manager at Google",
     image: "/testimonials/dave.jpeg",
-  }, // add quotes from jono, jake, mark, and maybe meet and code?
+  },
+  {
+    quote:
+      "Jamie proved himself to be a very capable developer, showing initiative and imagination and good communication skills. In the three months that he worked with us, he helped create lasting product features and improvements.",
+    name: "Mateo Solares",
+    title: "Co-founder/CPO @ Studycat",
+    image: "/testimonials/mateo.jpeg",
+  }
 ];
   
 export const companies = [
