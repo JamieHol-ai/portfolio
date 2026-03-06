@@ -184,6 +184,14 @@ export const projects = [
   
 export const testimonials = [
   {
+    quote: `I had the pleasure of managing Jamie during his 11-week summer internship at VIOOH, and I was really impressed by his technical skills, initiative, and attitude. He worked on a full-stack project that was quite challenging: building from scratch an end-to-end OOH campaign visualisation/planning tool that combined multiple technologies (including natural language search, powered by Cortex AI). He managed to deliver a polished product that will provide genuine value to our business users.
+
+    Apart from his technical skills, Jamie was a joy to work with and managed to integrate seamlessly into the team. Excited to see what he does next !`,
+    name: "Remy Prom",
+    title: "Data Engineering Lead at VIOOH",
+    image: "/testimonials/remy.jpeg",
+  },
+  {
     quote:
       "Jamie was always quick to find solutions and was commited to getting things done. He also presented his ideas confidently and effectively, which made him a great team player. His work ethic is outstanding, and he became a real asset to our team. He's pretty funny too. I highly recommend Jamie—any company would be lucky to have him on board!",
     name: "Jake Whiddon",
@@ -207,20 +215,25 @@ export const testimonials = [
 ];
   
 export const companies = [
+  { id: 1,
+    name: "VIOOH",
+    img: "/testimonials/viooh_logo.jpeg",
+    link: "https://www.viooh.com/"
+  },
   {
-    id: 1,
+    id: 2,
     name: "Studycat",
     img: "/testimonials/studycat.svg",
     link: "https://studycat.com/"
   },
   {
-    id: 2,
+    id: 3,
     name: "Cromar Future Group",
     img: "/testimonials/EE.svg",
     link: "https://www.futuregroup.org.uk/"
   },
   {
-    id: 3,
+    id: 4,
     name: "Meet and Code",
     img: "/testimonials/meet_and_code.svg",
     link: "https://www.meet-and-code.org/gb/en/"
@@ -231,14 +244,14 @@ export const workExperience = [
   {
     id: 1,
     title: "Edinburgh University",
-    desc: "As a second-year Masters student in Informatics at the University of Edinburgh, I am focused on specialising in AI or robotics. The curriculum and opportunities, like a guest lecture by Haskell founder Philip Wadler, have enriched my understanding and inspired further exploration in these fields.",
+    desc: "As a third-year Masters student in Informatics at the University of Edinburgh, I am focused on specialising in AI or robotics. The curriculum and opportunities, like a guest lecture by Haskell founder Philip Wadler, have enriched my understanding and inspired further exploration in these fields.",
     className: "md:col-span-2",
     thumbnail: "/experience/university.png",
   },
   {
     id: 2,
     title: "Formula Student",
-    desc: "In FS, I am part of a 150+ member team focused on designing a high-performance race car. This experience has greatly improved my communication and teamwork skills, emphasising the importance of collaboration in achieving shared goals.",
+    desc: "In FS, I am a team lead, working as part of a 150+ member society focused on designing a high-performance race car. This experience has greatly improved my communication and teamwork skills, emphasising the importance of collaboration in achieving shared goals.",
     className: "md:col-span-2",
     thumbnail: "/experience/formulaStudent.png",
   },
