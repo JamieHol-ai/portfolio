@@ -1,89 +1,789 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ============================================================
+   Design tokens
+   ============================================================ */
+:root {
+  --bg: #0d0e10;
+  --tx: #e4e4df;
+  --tx2: #8c8d88;
+  --tx3: #b6b7b1;
+  --rule: #26282b;
+  --accent: #6fa8a0;
+  --warn: #c8965a;
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+  /* font-family variables are injected by next/font in layout.tsx */
+  --serif: var(--font-serif), Georgia, serif;
+  --sans: var(--font-sans), system-ui, sans-serif;
+  --mono: var(--font-mono), ui-monospace, monospace;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+  /* the left margin rail: content sits to the right of it on wide screens */
+  --rail: 200px;
+  --measure: 680px;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+}
 
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+/* ============================================================
+   Base
+   ============================================================ */
+* {
+  box-sizing: border-box;
+}
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+html {
+  scroll-behavior: smooth;
+}
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--tx);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
 
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+::selection {
+  background: rgba(111, 168, 160, 0.28);
+}
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+a:focus-visible,
+button:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+}
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
+/* ============================================================
+   Left-edge scroll indicator
+   ============================================================ */
+#edge {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 100vh;
+  z-index: 60;
+  background: linear-gradient(
+    180deg,
+    rgba(111, 168, 160, 0) 0%,
+    rgba(111, 168, 160, 0.5) 50%,
+    rgba(111, 168, 160, 0) 100%
+  );
+  transform-origin: top;
+  transform: scaleY(0);
+}
 
-    --radius: 0.5rem;
-  }
+/* ============================================================
+   Layout
+   ============================================================ */
+.wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+}
 
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+@media (min-width: 1100px) {
+  .wrap {
+    max-width: calc(var(--measure) + var(--rail));
+    padding-left: var(--rail);
   }
 }
 
-@layer base {
-  * {
-    @apply border-border !scroll-smooth;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  button {
-    @apply active:outline-none;
+.rule {
+  height: 1px;
+  background: var(--rule);
+  border: 0;
+  margin: 0;
+}
+
+/* skip link */
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--bg);
+  color: var(--accent);
+  padding: 10px 14px;
+  border: 1px solid var(--rule);
+}
+.skip:focus {
+  left: 8px;
+  top: 8px;
+}
+
+/* ============================================================
+   Nav
+   ============================================================ */
+.topnav {
+  padding: 30px 0 0;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.03em;
+}
+.topnav a {
+  color: var(--accent);
+  text-decoration: none;
+  margin-right: 20px;
+}
+.topnav a:hover {
+  text-decoration: underline;
+}
+.topnav .here,
+.topnav span {
+  color: var(--tx2);
+  margin-right: 20px;
+}
+
+/* ============================================================
+   Typography
+   ============================================================ */
+h1 {
+  font-family: var(--sans);
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin: 34px 0 0;
+}
+
+h2 {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tx2);
+  margin: 56px 0 16px;
+  scroll-margin-top: 80px;
+}
+
+p {
+  margin: 0 0 22px;
+  max-width: 66ch;
+}
+
+.lede {
+  font-size: 19px;
+}
+
+.standfirst {
+  font-size: 19px;
+  color: var(--tx3);
+  margin: 14px 0 0;
+  max-width: 62ch;
+}
+
+/* inline marker for content that is not yet real */
+.ph {
+  border-bottom: 1px dotted var(--warn);
+  color: var(--warn);
+}
+
+blockquote {
+  margin: 26px 0;
+  padding-left: 18px;
+  border-left: 1px solid var(--accent);
+  border-radius: 0;
+  font-size: 16px;
+  color: var(--tx3);
+  max-width: 62ch;
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  color: var(--tx3);
+}
+
+/* ============================================================
+   Hero (home)
+   ============================================================ */
+#hero {
+  min-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+#track {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+#track.on {
+  opacity: 1;
+}
+
+/* #hero is a column flex container, so `margin: 0 auto` on .wrap would shrink
+   it to fit its content and knock the hero text out of line with the log
+   below. Stretching it back to full width keeps the two columns aligned. */
+.heroinner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.heroinner h1 {
+  font-size: 34px;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: rise 0.9s 0.25s var(--ease) forwards;
+}
+
+.sub {
+  font-size: 16px;
+  color: var(--tx2);
+  max-width: 52ch;
+  margin: 10px 0 0;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: rise 0.9s 0.45s var(--ease) forwards;
+}
+
+.cv {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 16px;
+  opacity: 0;
+  animation: rise 0.9s 0.65s var(--ease) forwards;
+}
+.cv:hover {
+  text-decoration: underline;
+}
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
-@layer utilities {
-  .heading {
-    @apply font-bold text-4xl md:text-5xl text-center;
-  }
+/* A full-width strip pinned to the bottom of the hero, holding a .wrap — that
+   way the hint inherits the same left rail as everything else on the page. */
+.scrollrail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 32px;
+  z-index: 2;
+}
 
-  .black-gradient {
-    background: linear-gradient(90deg, #161a31 0%, #06091f 100%);
+.scrollhint {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--tx2);
+  letter-spacing: 0.08em;
+  opacity: 0;
+  animation: rise 1s 1.4s forwards;
+}
+
+/* ============================================================
+   Log entries
+   ============================================================ */
+.entry {
+  display: flex;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+.entry:last-of-type {
+  border-bottom: 0;
+}
+
+.entry .date {
+  flex: 0 0 96px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--tx2);
+  letter-spacing: 0.06em;
+  padding-top: 4px;
+}
+
+.entry .body {
+  flex: 1;
+  min-width: 0;
+}
+
+.entry .title {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+  color: var(--tx);
+  text-transform: none;
+  letter-spacing: normal;
+}
+.entry .title a {
+  color: inherit;
+  text-decoration: none;
+}
+.entry .title a:hover {
+  color: var(--accent);
+}
+
+.entry .desc {
+  font-size: 14.5px;
+  color: var(--tx3);
+  margin: 6px 0 0;
+  max-width: 62ch;
+}
+
+.meta {
+  display: flex;
+  gap: 26px;
+  margin-top: 9px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--tx2);
+  flex-wrap: wrap;
+}
+.meta b {
+  font-weight: 400;
+  color: var(--tx3);
+}
+.meta a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.meta a:hover {
+  text-decoration: underline;
+}
+
+.more {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--accent);
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 9px;
+}
+.more:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 720px) {
+  .entry {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .entry .date {
+    flex: none;
+  }
+}
+
+/* ============================================================
+   Figures
+   ============================================================ */
+figure {
+  margin: 30px 0 0;
+  position: relative;
+}
+
+.figbox {
+  background: #fff;
+  border-radius: 2px;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: #8c8d88;
+  text-align: center;
+  padding: 24px;
+}
+.figbox img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+figcaption {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--tx2);
+  line-height: 1.6;
+}
+
+.mnote {
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--tx2);
+  margin-top: 10px;
+}
+
+/* Caption and margin note share one column so they can never land on top of
+   each other. Below 1280px it sits under the figure; above, it moves out into
+   the left rail — which is also why it is a single block rather than two
+   independently positioned ones. */
+.figmeta {
+  margin-top: 8px;
+}
+
+/* Wide layout. The left rail has three tenants at these widths — the fixed
+   #toc, the figure's caption column, and the text column — so the geometry is
+   pinned rather than left to overlap:
+     #toc      24 → 174
+     .figmeta  (content left − 200) → (content left − 50)
+     figure    content left → (content right + 200)
+   The figure gains its extra width from the right margin instead of bleeding
+   left, which is what leaves the caption column somewhere to live. */
+@media (min-width: 1280px) {
+  .writeup figure {
+    margin-right: -200px;
+  }
+  .writeup .figmeta {
+    position: absolute;
+    left: -200px;
+    top: 0;
+    width: 150px;
+    text-align: right;
+    margin-top: 0;
+  }
+}
+
+/* log-page figures are inline in the entry column and smaller */
+.log figure {
+  margin: 14px 0 0;
+}
+.log .figbox {
+  min-height: 0;
+  height: 200px;
+  padding: 0 20px;
+  font-size: 11px;
+}
+
+/* ============================================================
+   Readout block (key/value strip)
+   ============================================================ */
+.readout {
+  margin: 30px 0 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.readout .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.readout .row:last-child {
+  border-bottom: 0;
+}
+.readout .lab {
+  font-family: var(--sans);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tx2);
+}
+.readout .val {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--tx);
+  text-align: right;
+}
+.readout .val a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.readout .val a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================================
+   Stat strip
+   ============================================================ */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 26px 0 0;
+}
+.stat {
+  background: var(--bg);
+  padding: 16px 16px 14px;
+}
+.stat .k {
+  font-family: var(--sans);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tx2);
+}
+.stat .v {
+  font-family: var(--mono);
+  font-size: 25px;
+  color: var(--tx);
+  margin-top: 7px;
+  font-variant-numeric: tabular-nums;
+}
+.stat .d {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--accent);
+  margin-top: 4px;
+}
+
+/* ============================================================
+   Tables
+   ============================================================ */
+.writeup table,
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 13px;
+  margin: 24px 0 0;
+  font-variant-numeric: tabular-nums;
+}
+.writeup th,
+.data-table th {
+  font-family: var(--sans);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tx2);
+  text-align: right;
+  padding: 0 0 9px;
+  border-bottom: 1px solid var(--rule);
+  font-weight: 500;
+}
+.writeup th:first-child,
+.writeup td:first-child,
+.data-table th:first-child,
+.data-table td:first-child {
+  text-align: left;
+}
+.writeup td,
+.data-table td {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--rule);
+  text-align: right;
+  color: var(--tx3);
+}
+.writeup td:first-child,
+.data-table td:first-child {
+  color: var(--tx);
+}
+.writeup tr.best td,
+.data-table tr.best td {
+  color: var(--tx);
+}
+
+/* ============================================================
+   Section TOC (write-up left rail)
+   ============================================================ */
+#toc {
+  display: none;
+}
+@media (min-width: 1100px) {
+  #toc {
+    display: block;
+    position: fixed;
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px;
+    z-index: 40;
+  }
+  #toc a {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    color: var(--tx2);
+    text-decoration: none;
+    padding: 5px 0 5px 12px;
+    border-left: 1px solid var(--rule);
+    transition: 0.25s;
+  }
+  #toc a.on {
+    color: var(--accent);
+    border-left-color: var(--accent);
+  }
+}
+
+/* ============================================================
+   About page: capability table, time blocks, quotes
+   ============================================================ */
+.captable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+}
+.captable td {
+  padding: 11px 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+.captable td.k {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--tx);
+  width: 36%;
+  padding-right: 20px;
+  white-space: nowrap;
+}
+.captable td.v {
+  color: var(--tx3);
+  font-size: 14px;
+}
+
+.note {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--tx2);
+  margin-top: 14px;
+}
+
+.timeblock {
+  display: flex;
+  gap: 24px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.timeblock:last-of-type {
+  border-bottom: 0;
+}
+.timeblock .k {
+  flex: 0 0 130px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--tx2);
+  letter-spacing: 0.05em;
+  padding-top: 3px;
+}
+.timeblock .v {
+  flex: 1;
+  font-size: 14.5px;
+  color: var(--tx3);
+}
+
+.quote {
+  margin: 0 0 34px;
+  max-width: 66ch;
+}
+.quote p {
+  font-size: 16px;
+  color: var(--tx3);
+  margin: 0 0 9px;
+}
+.attr {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--tx2);
+  letter-spacing: 0.03em;
+}
+.attr b {
+  color: var(--tx3);
+  font-weight: 400;
+}
+
+@media (max-width: 720px) {
+  .timeblock {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .timeblock .k {
+    flex: none;
+  }
+  .captable td.k {
+    width: auto;
+    white-space: normal;
+  }
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+footer {
+  display: flex;
+  gap: 22px;
+  padding: 44px 0 80px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--tx2);
+  flex-wrap: wrap;
+}
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================================
+   Scroll motion
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.6s var(--ease);
+}
+.reveal.up {
+  transform: translateY(-14px);
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+.fig {
+  opacity: 0;
+  transition: opacity 0.7s ease, transform 0.9s var(--ease);
+}
+.fig.from-left,
+.fig.up.from-left {
+  transform: translateX(-56px) rotate(-1.4deg);
+}
+.fig.from-right,
+.fig.up.from-right {
+  transform: translateX(56px) rotate(1.4deg);
+}
+.fig.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal,
+  .fig,
+  .heroinner h1,
+  .sub,
+  .cv,
+  .scrollhint {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

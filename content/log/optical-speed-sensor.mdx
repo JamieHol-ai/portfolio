@@ -1,0 +1,74 @@
+---
+title: Optical speed sensor integration
+date: 2026-06-01
+displayDate: 2026-06
+writeup: true
+summary: >-
+  Integrated a ground-referenced optical speed sensor into the vehicle's
+  estimation stack, giving a slip-independent velocity measurement the wheel
+  encoders cannot provide under braking.
+standfirst: >-
+  Wheel encoders measure the wheel, not the ground. Under braking and on corner
+  exit those are different things, and the estimator had no way to tell.
+meta:
+  - label: Code
+    value: private (team)
+figure:
+  side: left
+  placeholder: figure — velocity trace, sensor vs. encoders
+  caption: Fig. 2 — placeholder
+---
+
+<Readout
+  rows={[
+    { label: "Vehicle", value: "EUFS autonomous racecar" },
+    { label: "Bus", value: "CAN" },
+    { label: "Consumes", value: "ground-referenced optical speed sensor" },
+    { label: "Feeds", value: "vehicle state estimator" },
+    { label: "Code", value: "private (team repository)" },
+  ]}
+/>
+
+## The problem
+
+Wheel odometry measures how fast the wheels are turning, which is only the same
+as how fast the car is moving when the tyres are not slipping. Under braking and
+on corner exit they come apart, and the estimator has no independent way to
+notice: every velocity input it has is derived from the same wheels.
+
+An optical speed sensor measures against the ground directly, so its velocity
+estimate is unaffected by slip. That makes it the one input that can contradict
+the encoders rather than agree with them by construction.
+
+<Figure
+  note="The gap between the two traces is the slip, and it is exactly the quantity the encoders cannot see."
+  caption="Fig. 1 — placeholder"
+>
+  figure — velocity trace under braking, optical sensor vs. wheel encoders
+</Figure>
+
+## Approach
+
+The sensor talks over CAN, so the work split into three parts: getting frames
+off the bus and decoded, wrapping that in a template other subsystems could
+reuse for future CAN devices, and handing the resulting velocity to the state
+estimator as a measurement with its own noise model rather than as a drop-in
+replacement for wheel speed.
+
+The reusable template mattered more than the sensor did. The team adds CAN
+devices regularly and each one had previously been integrated from scratch.
+
+## What I took from it
+
+Most of the difficulty was not the protocol. It was working out, with people who
+had been on the team longer than I had, which of the existing assumptions in the
+estimation stack the new measurement was allowed to break — and then explaining
+the change clearly enough that it could be reviewed by someone who had not been
+reading the datasheet all week.
+
+## What I'd change
+
+The measurement is currently trusted at a fixed covariance. The sensor's own
+quality flag degrades over surface changes and standing water, and folding that
+into the noise model is the obvious next step — it is the difference between a
+sensor that helps most of the time and one the filter can rely on.

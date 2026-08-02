@@ -1,51 +1,40 @@
-"use client";
-
-import { navItems } from "@/data";
-
-import Hero from "@/components/Hero";
-import RecentProjects from "@/components/Grid";
 import Footer from "@/components/Footer";
-import Clients from "@/components/Clients";
-import Experience from "@/components/Experience";
-import { FloatingNav } from "@/components/ui/FloatingNavbar";
-import { TracingBeam } from "@/components/ui/TracingBeam";
-import { useEffect, useState } from "react";
-import { Skills } from "@/components/Skills";
+import LogEntry from "@/components/LogEntry";
+import TrackCanvas from "@/components/TrackCanvas";
+import { getEntries } from "@/lib/content";
+import { site } from "@/site.config";
 
-const Home = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    // Check the screen size once on component mount
-    setIsMobile(window.innerWidth <= 640);
-  }, []);
+export default function Home() {
+  const entries = getEntries();
 
   return (
-    <main className="relative bg-black-100 flex justify-center items-center flex-col overflow-clip mx-auto sm:px-10 px-5">
-      <div className="max-w-7xl w-full">
-        <FloatingNav navItems={navItems} />
-        {!isMobile ? (
-          <TracingBeam>
-            <Hero />
-            <RecentProjects />
-            <Skills />
-            <Clients />
-            <Experience />
-            <Footer />
-          </TracingBeam>
-        ) : (
-          <>
-            <Hero />
-            <RecentProjects />
-            <Skills />
-            <Clients />
-            <Experience />
-            <Footer />
-          </>
-        )}
-      </div>
-    </main>
-  );
-};
+    <>
+      <section id="hero">
+        <TrackCanvas />
+        <div className="wrap heroinner">
+          <h1>{site.name}</h1>
+          <p className="sub">{site.tagline}</p>
+          <a className="cv" href={site.cv}>
+            CV (PDF)
+          </a>
+        </div>
+        <div className="scrollrail">
+          <div className="wrap">
+            <span className="scrollhint">SCROLL</span>
+          </div>
+        </div>
+      </section>
 
-export default Home;
+      <main className="wrap log" id="main">
+        <hr className="rule" />
+
+        {entries.map((entry) => (
+          <LogEntry key={entry.slug} entry={entry} />
+        ))}
+
+        <hr className="rule" />
+        <Footer home />
+      </main>
+    </>
+  );
+}
