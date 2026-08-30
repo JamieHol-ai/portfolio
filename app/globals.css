@@ -419,6 +419,7 @@ figure {
 .figbox img {
   display: block;
   width: 100%;
+  max-width: 100%;
   height: auto;
 }
 
@@ -476,6 +477,24 @@ figcaption {
   height: 200px;
   padding: 0 20px;
   font-size: 11px;
+  overflow: hidden;
+}
+/* The box above is a fixed-height frame, so an image must be fitted to it —
+   `width:100%; height:auto` would size by aspect ratio and spill out of both
+   ends of the flex centring. `contain` letterboxes against the white box, which
+   is invisible for figures that already sit on white. */
+.log .figbox img {
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+/* The white plate exists to give placeholder text something to sit on. A real
+   image brings its own background, so keep it and the letterbox bars `contain`
+   would otherwise expose either side of it. */
+.log .figbox:has(img) {
+  background: none;
+  padding: 0;
 }
 
 /* ============================================================

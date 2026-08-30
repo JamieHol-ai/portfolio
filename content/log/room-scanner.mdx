@@ -1,15 +1,16 @@
 ---
 title: 3D room scanner
-date: 2024-06-01
-displayDate: 2024
+date: 2020-10-01
+displayDate: 2020
 writeup: true
 summary: >-
-  An Arduino driving a pan/tilt unit and an infrared rangefinder, sweeping a
-  180° field of view to produce a point cloud of a room. C++ on the
-  microcontroller, Python for reconstruction and display.
+  A pan/tilt unit, a time-of-flight rangefinder and an Arduino, sweeping a 180°
+  field of view to produce a point cloud of a room. Built for £96 against a
+  commercial scanner costing twenty thousand.
 standfirst: >-
-  Two servos, one infrared rangefinder and no odometry — the whole problem is
-  turning a stream of angle-and-distance triples into geometry you can trust.
+  The scanner is bolted to a table, so its own position is the one thing never
+  in doubt. The whole problem is turning a stream of angle-and-distance triples
+  into geometry you can trust — and most of the work is in the word "trust".
 meta:
   - label: Built with
     value: Arduino, C++, Python
@@ -25,79 +26,254 @@ figure:
 
 <Readout
   rows={[
-    { label: "Microcontroller", value: <PH>PLACEHOLDER — board</PH> },
-    { label: "Rangefinder", value: <PH>PLACEHOLDER — sensor and range</PH> },
-    { label: "Actuation", value: <PH>PLACEHOLDER — pan/tilt servos and step resolution</PH> },
-    { label: "Field of view", value: <PH>180° pan × — ° tilt</PH> },
-    { label: "Firmware", value: "C++ on the microcontroller" },
-    { label: "Host", value: "Python — reconstruction and display" },
+    { label: "Rangefinder", value: "Benewake TFMini Plus — single-point time-of-flight" },
+    { label: "Range", value: "0.1–12 m, ±5 cm to 6 m, ±1 % beyond" },
+    { label: "Beam", value: "3.6° receiving angle" },
+    { label: "Actuation", value: "Lynxmotion pan/tilt, 2 × Hitec HS-422 on a PCA9685" },
+    { label: "Field of view", value: "180° pan × 90° tilt, 1° steps" },
+    { label: "Microcontroller", value: "Arduino Uno — ATmega328P, 16 MHz" },
+    { label: "Host", value: "Python — VPython point cloud, Tkinter GUI, PySerial" },
+    { label: "Cost", value: "£96.35" },
     { label: "Code", value: <a href="https://github.com/JamieHol-ai/3D-Room-Scanner">github.com/JamieHol-ai/3D-Room-Scanner</a> },
   ]}
 />
 
 <Stats
   items={[
-    { k: "Points per sweep", v: <PH>—</PH>, d: <PH>— × — grid</PH> },
-    { k: "Sweep time", v: <PH>— s</PH>, d: <PH>at — ms settle</PH> },
-    { k: "Range error", v: <PH>± — mm</PH>, d: <PH>at — m</PH> },
-    { k: "Angular step", v: <PH>— °</PH>, d: "pan and tilt" },
+    { k: "Total cost", v: "£96.35", d: "against £20,000+" },
+    { k: "Range", v: "12 m", d: "±5 cm to 6 m" },
+    { k: "Angular step", v: "1°", d: "0.8° unreliable" },
+    { k: "Beam spot", v: "6 cm", d: "at 1 m; 72 cm at 12 m" },
   ]}
 />
 
 ## The problem
 
-PLACEHOLDER COPY. <PH>PLACEHOLDER — the brief, and why a rotating rangefinder rather than anything else.</PH>
+A commercial terrestrial scanner — the Topcon GLS2000 is the one I kept reading
+about — will map a space out to 500 m with a resolution of about 6 mm. It also
+costs between twenty and thirty thousand pounds, which puts it a long way
+outside the reach of anyone who merely wants to know what one does.
+
+So the question was whether the same idea survives being built for under £100.
+Not the same range and not the same resolution, obviously, but the same
+principle: sweep a beam across a room, time the returns, and end up with
+something a person can recognise as the room they are standing in. The target
+was a 180° field of view and a point cloud accurate enough to be read as
+geometry rather than as noise.
 
 ## Hardware
 
-PLACEHOLDER COPY. <PH>PLACEHOLDER — the pan/tilt assembly, the rangefinder, and how they are driven from the microcontroller.</PH>
+The sensor is a single-point time-of-flight rangefinder — it measures one
+distance along one bearing, and everything else comes from pointing it
+somewhere new. A pan/tilt unit built from two hobby servos does the pointing,
+and an Arduino Uno drives the whole thing.
 
-<Figure caption="Fig. 1 — placeholder">
-  figure — the pan/tilt assembly
-</Figure>
+<Figure
+  src="/room-scanner/rig.jpg"
+  alt="The assembled scanner: the rangefinder mounted on the pan/tilt bracket, with the Arduino, breadboard and servo driver alongside"
+  note="The wooden base was not in the original plan — the kit's own base was too narrow to stay still while the servos accelerated."
+  caption="Fig. 1 — the assembled rig: rangefinder on the pan/tilt bracket, Arduino and servo driver alongside"
+/>
+
+Two decisions here mattered more than they looked like they would. The servos
+run from a separately regulated 5 V supply through a PCA9685 driver rather than
+off the Arduino's own rail — before that, unregulated mains-derived power made
+them move jerkily and unpredictably. And the pan/tilt kit's base was too narrow
+to be stable under its own movement, so the whole assembly is bolted to a
+wooden frame I made for it. A scanner that shifts slightly each time it
+accelerates is a scanner whose coordinate frame is a fiction.
+
+The rangefinder also sits 5 cm off the centre of rotation, which has to be
+corrected for in software. It is a small number that is wrong everywhere at
+once.
 
 ## Approach
 
-PLACEHOLDER COPY. <PH>PLACEHOLDER — the sweep pattern, timing, and the serial protocol back to the host.</PH>
+The loop is deliberately simple. The servos step to the next bearing, the
+sensor takes a single reading, and the Arduino writes distance, return
+strength, pan angle and tilt angle to the serial port. The host reads that,
+converts to Cartesian coordinates, and plots the point live so you can watch the
+room appear.
 
-The sensor returns a distance along a known bearing, so each sample is a point
-in spherical coordinates about the scanner: pan angle, tilt angle, range. Turning
-that into a Cartesian point cloud is a coordinate transform. Turning it into a
-*good* point cloud is everything else — the calibration between commanded servo
-angle and actual bearing, the settle time before a reading is trustworthy, and
-what to do with the returns that are simply wrong.
+Each sample is a point in spherical coordinates about the scanner, so the
+conversion is the one piece of real mathematics in the pipeline:
 
-## Reconstruction
-
-PLACEHOLDER COPY. <PH>PLACEHOLDER — the host-side pipeline: parsing, filtering, transform, and display.</PH>
-
-<Figure
-  note="Infrared rangefinders are badly behaved on dark, glossy and oblique surfaces, all three of which a room has plenty of."
-  caption="Fig. 2 — placeholder"
->
-  figure — raw returns vs. filtered, showing the rejected samples
-</Figure>
-
-## Results
-
-PLACEHOLDER COPY. <PH>PLACEHOLDER — accuracy against measured ground truth, and where it degrades.</PH>
-
-<ResultsTable
-  head={["Surface", "Measured (m)", "Reported (m)", "Error (mm)"]}
+<Readout
   rows={[
-    [<PH key="a">—</PH>, <PH key="b">—</PH>, <PH key="c">—</PH>, <PH key="d">—</PH>],
-    [<PH key="e">—</PH>, <PH key="f">—</PH>, <PH key="g">—</PH>, <PH key="h">—</PH>],
-    [<PH key="i">—</PH>, <PH key="j">—</PH>, <PH key="k">—</PH>, <PH key="l">—</PH>],
+    { label: "X", value: "distance × sin(tilt) × sin(pan)" },
+    { label: "Y", value: "distance × cos(tilt)" },
+    { label: "Z", value: "distance × sin(tilt) × cos(pan)" },
+    { label: "Correction", value: "−5 cm, sensor offset from centre of rotation" },
   ]}
 />
 
+Points are coloured either by distance or by return strength, switchable after
+the scan, which turned out to matter — the two colourings answer different
+questions, and the strength one answers a question I had not thought to ask.
+
+## What broke
+
+The worst bug was a timing bug, and it is the one I would still describe first
+in an interview.
+
+The rangefinder was running in continuous mode, free-running at its own rate and
+streaming readings at the serial port as fast as it could. The Arduino read
+whatever was in the buffer. But the buffer was filling faster than it was being
+drained, so what came out was not the current distance — it was a distance from
+roughly seven iterations earlier, paired with the *current* pan and tilt angles.
+Every point was being placed at the wrong bearing by a fixed lag.
+
+What makes it a good bug is that it is invisible if you only ever sweep one way.
+A constant lag on a monotonic sweep just shifts the whole cloud slightly, and the
+room still looks like a room. It only appears on the return sweep, where the lag
+now displaces points in the opposite direction: surfaces that should have landed
+in the same place on both passes instead spread out into two separate planes.
+
+<Figure
+  src="/room-scanner/time-lag.png"
+  alt="Point cloud showing points that should be coincident smeared across a plane"
+  note="Every point here is a measurement of the same surface. The spread is the lag, not the sensor."
+  caption="Fig. 2 — the same surface measured on the forward and return sweep"
+/>
+
+The fix was to stop letting the sensor free-run: switching it to single-ping
+mode, where it measures only when explicitly commanded, means a reading is
+requested, taken and consumed before the next bearing is commanded. The
+association between measurement and pose becomes correct by construction rather
+than by luck.
+
+This is a sensor time-synchronisation problem, which I did not have the
+vocabulary for at the time. It is the same class of failure as anything else
+where two data streams are fused on the assumption that samples with the same
+index happened at the same moment — and it is the reason I now treat that
+assumption as something to be checked rather than relied upon.
+
+Three others cost real time:
+
+The spherical-to-Cartesian conversion was, for an embarrassing while, the 2D
+formula. It produces results that are plausible in a plane and wrong everywhere
+else, which is the worst kind of wrong.
+
+The servos were not reaching a full 180°, because the default minimum and
+maximum pulse widths did not match the HS-422s I was using. Debugging this
+by watching a rangefinder is hopeless, since you cannot see where it is aimed —
+so I swapped the sensor for a low-power laser pointer and calibrated the pulse
+limits against something visible.
+
+<Figure
+  src="/room-scanner/laser-calibration.jpg"
+  alt="Laser beams from the scanner tracing across a room to a wooden target"
+  caption="Fig. 3 — calibrating the pan limits against a visible beam"
+/>
+
+And the motors juddered intermittently until I noticed the sensor and the servos
+were running at different baud rates — the sensor at 115200, the servos at 9600.
+Dropping the sensor to 9600 fixed it and cost nothing, because in single-ping
+mode it was no longer trying to stream.
+
+## Results
+
+Four spaces scanned: a living room, a study, an outdoor flight of steps and a
+staircase. The same data, coloured two ways.
+
+<Figure
+  src="/room-scanner/living-room-distance.jpg"
+  alt="Point cloud of a living room coloured by distance"
+  caption="Fig. 4 — living room, coloured by distance"
+/>
+
+<Figure
+  src="/room-scanner/living-room-strength.jpg"
+  alt="Point cloud of the same living room coloured by return strength"
+  note="Same points, same scan. Only the colour mapping differs."
+  caption="Fig. 5 — the same scan, coloured by return strength"
+/>
+
+The distance colouring shows the geometry. The strength colouring shows the
+material, which I had not expected to be legible at all: hard surfaces such as
+wood return a strong signal, soft ones such as fabric and carpet return a weak
+one. Furniture separates from walls in a way it simply does not in the distance
+view. It follows directly from how the beam reflects — a rough surface scatters
+some light back towards the sensor from almost any angle, a soft one absorbs
+much more of it — but seeing it fall out of the data was the most satisfying
+part of the project.
+
+I ended up treating returns below a strength of 100 as unreliable and flagging
+them separately rather than silently plotting them.
+
+<Figure
+  src="/room-scanner/steps.jpg"
+  alt="Point cloud of an outdoor flight of steps"
+  caption="Fig. 6 — outdoor steps, where the horizontal structure comes through clearly"
+/>
+
+## Where it fell down
+
+Three things limit this scanner, and I went after each of them with an
+experiment rather than an assumption.
+
+**Mirrors break it completely.** The sensor assumes light travels in a straight
+line, so it has no way to represent a beam that has bounced. What actually
+happens is that the beam reflects off the mirror, carries on to some other
+object, and returns by the same path — and the scanner places that object at the
+total path length, along the original bearing. The result is a phantom: a copy
+of the ceiling apparently floating behind the wall.
+
+<Figure
+  src="/room-scanner/mirror-artefact.jpg"
+  alt="Point cloud showing a spray of spurious points extending beyond the room's wall"
+  note="The points streaming off to the upper right are a reflection of the ceiling, placed behind the mirror."
+  caption="Fig. 7 — an artefact produced by a large mirror"
+/>
+
+I set this up deliberately to confirm it: a target 50 cm away, viewed via a
+mirror, reads as 100 cm. The reflectivity is not marginal either — the aluminium,
+silver and gold backings used in ordinary mirrors are all more than 85 %
+reflective at infrared wavelengths, so essentially the entire beam survives the
+bounce. Glass, tested the same way, does the opposite and is effectively
+invisible: the sensor reads straight through it at any angle, which means a
+window is not a surface as far as this scanner is concerned.
+
+**The beam is not a line.** It diverges at a 3.6° receiving angle, so the spot
+is about 6 cm across at 1 m and around 72 cm at 12 m. When two surfaces at
+different distances fall inside one spot, the sensor does not report either —
+it reports a value somewhere between them. Every edge in the point cloud is
+therefore slightly invented.
+
+I measured this rather than taking the datasheet at its word, closing two boxes
+in towards the beam from either side until the reported distance changed.
+
+<Figure
+  src="/room-scanner/beam-width.png"
+  alt="Graph of measured distance against beam width at 0.5 m and 1 m, with theoretical values marked"
+  note="The manufacturer's figure sits at the inflection point of both curves rather than at either extreme — defensible, but it describes where the beam starts to matter, not where it ends."
+  caption="Fig. 8 — measured beam width against the manufacturer's specification"
+/>
+
+**Resolution is bought with time.** A slower sweep means finer servo steps and
+more samples to average, so scan quality and scan duration trade off against
+each other directly. There is also a geometric limit that no amount of patience
+fixes: because the scanner sweeps in angle, points spread apart with distance,
+and a far wall is always sampled more sparsely than a near one.
+
+On accuracy, the datasheet claims ±0.5 cm and a 10 cm minimum range. The
+tolerance held up in testing. The minimum did not, quite — the sensor will
+return readings down to about 4 cm, but roughly one in ten of them is wrong, so
+I kept to the specified minimum and made the questionable points something the
+user opts in to seeing.
+
 ## What I'd change
 
-PLACEHOLDER COPY. <PH>PLACEHOLDER — what I would do differently.</PH>
+The angular resolution is the binding constraint, and hobby servos are the
+reason. A geared stepper with a 0.067° step would be roughly twenty times
+finer — the servos here are reliable to 1°, and merely willing to attempt 0.8°.
+Better still would be to stop sweeping a single-point sensor altogether and
+mount a spinning 360° LiDAR module on one servo, which collects a whole
+horizontal ring per revolution and would cut the scan time enormously while
+covering the full circle rather than half of it. The breadboard should be a PCB.
 
-Looking back at it from the LiDAR work: this is the same problem with the
-scanning done in software and the vehicle held still. The thing it taught me
-that transferred directly is that a range sensor's error model is not a single
-number — it depends on the surface and the incidence angle, and a pipeline that
-treats every return as equally good will produce a cloud that looks plausible
-and measures badly.
+The thing this taught me that transferred directly is that a range sensor's
+error model is not a single number — it depends on the surface, the incidence
+angle, and how much of the beam lands on one thing. A pipeline that treats every
+return as equally good will produce a cloud that looks plausible and measures
+badly.
