@@ -1,0 +1,127 @@
+---
+title: LiDAR odometry on vehicle data
+date: 2026-07-01
+displayDate: 2026-07
+writeup: true
+summary: >-
+  Scan-matching odometry on the racecar's LiDAR, built to be the second input to
+  the state estimator. Wheelspeeds tell you how fast the wheels turned; the scans
+  tell you how far the car actually moved.
+standfirst: >-
+  The wheelspeed model is a model, and it is wrong in exactly the places that
+  matter. Registering successive scans gives a motion estimate that never asks
+  the tyres anything.
+meta:
+  - label: Code
+    value: private (team)
+figure:
+  side: right
+  placeholder: figure — estimated trajectory vs. RTK ground truth, one lap
+---
+
+<Readout
+  rows={[
+    { label: "Sensor", value: <PH>PLACEHOLDER — LiDAR model and mounting</PH> },
+    { label: "Scan rate", value: <PH>— Hz</PH> },
+    { label: "Dataset", value: <PH>PLACEHOLDER — dataset and lap count</PH> },
+    { label: "Language", value: "C++17, ROS 2" },
+    { label: "Code", value: "private (team repository)" },
+  ]}
+/>
+
+<Stats
+  items={[
+    { k: "Drift", v: <PH>— % of distance</PH>, d: <PH>vs. — % wheel odometry</PH> },
+    { k: "Final ATE", v: <PH>— m</PH>, d: "one lap, against RTK" },
+    { k: "Per scan", v: <PH>— ms</PH>, d: <PH>budget — ms</PH> },
+    { k: "CPU", v: <PH>— %</PH>, d: "one core, Jetson" },
+  ]}
+/>
+
+## The problem
+
+PLACEHOLDER COPY. Wheel odometry is dead reckoning through a model of the tyre,
+and the model assumes the contact patch is not sliding. On a Formula Student
+track that assumption fails in the two places the estimator most needs to be
+right: under braking into a hairpin, and on corner exit with the inside wheel
+unloaded. The error is not noise — it is a bias that appears whenever the car is
+doing something interesting, and integrates.
+
+The optical speed sensor removed part of this, giving a ground-referenced
+longitudinal velocity that does not care about slip. What it does not give is
+rotation, or lateral motion. For those the estimator was still trusting a model.
+
+## Approach
+
+PLACEHOLDER COPY. LiDAR odometry estimates the rigid-body transform between
+successive scans directly from the geometry: whatever moved the points is what
+moved the car, and no part of that reasoning involves the tyre.
+
+<Readout
+  rows={[
+    { label: "Registration", value: <PH>PLACEHOLDER — registration method</PH> },
+    { label: "Correspondence", value: <PH>PLACEHOLDER — correspondence and rejection strategy</PH> },
+    { label: "Initial guess", value: <PH>PLACEHOLDER — motion prior seeding each match</PH> },
+    { label: "Downsampling", value: <PH>PLACEHOLDER — voxel size and point budget</PH> },
+  ]}
+/>
+
+The scan-to-scan estimate is the cheap part. Making it useful over a lap is not:
+consecutive-frame registration accumulates error monotonically, so the interesting
+design questions are all about what the current scan is registered *against*, and
+how much history that reference carries.
+
+<Figure
+  note="Cones are sparse and self-similar, which is the hard case — long stretches of the track give the registration very little to lock onto laterally."
+  caption="Fig. 1 — placeholder"
+>
+  figure — a single scan overlaid on the accumulated map, mid-corner
+</Figure>
+
+## What broke
+
+PLACEHOLDER COPY. <PH>PLACEHOLDER — the failure modes actually hit, in order of how long they cost.</PH>
+
+The general shape of the problem, for the write-up to fill in: motion distortion
+within a scan while the car is moving fast enough for the sweep to matter;
+degenerate geometry where the track is locally straight and featureless, so the
+along-track direction is poorly constrained; and the cost of a registration that
+does not converge inside the time budget on a target that has to keep up in real
+time.
+
+## Results
+
+PLACEHOLDER COPY. Measured against RTK GPS on the same laps used for the
+estimator work, so the numbers line up with the filter's.
+
+<ResultsTable
+  head={["Source", "Drift (%)", "Final ATE (m)", "Per scan (ms)"]}
+  best={1}
+  rows={[
+    ["Wheel odometry", <PH key="a">—</PH>, <PH key="b">—</PH>, "—"],
+    ["LiDAR odometry", <PH key="c">—</PH>, <PH key="d">—</PH>, <PH key="e">—</PH>],
+  ]}
+/>
+
+<Figure caption="Fig. 2 — placeholder">
+  figure — trajectory overlay, LiDAR vs. wheel odometry vs. RTK
+</Figure>
+
+## Where it goes
+
+This is not meant to be run open-loop. It exists to be the second measurement
+input to the [iterated EKF](/log/iterated-ekf/), which was deliberately built on
+wheelspeeds and IMU alone first — so switching this on gives a before-and-after
+on the same dataset rather than a separate experiment.
+
+The two error characteristics are complementary, which is the whole argument for
+fusing them: wheel odometry is smooth and biased, LiDAR odometry is unbiased and
+occasionally very wrong. A filter that knows which is which should beat both.
+
+## What I'd change
+
+PLACEHOLDER COPY. <PH>PLACEHOLDER — what I would do differently.</PH> The
+direction I want to take it is a learned front end — a network predicting the
+registration's initial guess, or its uncertainty, trained on the same logs — so
+that the degenerate-geometry cases announce themselves to the filter instead of
+being handed over with a confident covariance.

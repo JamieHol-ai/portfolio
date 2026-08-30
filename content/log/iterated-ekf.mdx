@@ -1,0 +1,154 @@
+---
+title: Iterated EKF on wheelspeeds and IMU
+date: 2026-07-28
+displayDate: 2026-07-28
+writeup: true
+summary: >-
+  Built the filter against wheelspeed and IMU input first so it does not inherit
+  the odometry's drift. Adding LiDAR odometry as a second input afterwards gives
+  a before-and-after on the same dataset.
+standfirst: >-
+  A single linearisation about the prior is a bet that the posterior is close to
+  where you started. Under hard cornering that bet stopped paying, and the fix
+  was to stop making it once.
+meta:
+  - label: Code
+    value: private (team)
+figure:
+  side: right
+  placeholder: figure — filter output vs. ground truth
+---
+
+<Readout
+  rows={[
+    { label: "Dataset", value: <PH>PLACEHOLDER — dataset and lap count</PH> },
+    { label: "Duration", value: <PH>PLACEHOLDER — duration and distance</PH> },
+    { label: "Sensors", value: "wheel encoders · IMU · optical speed" },
+    { label: "Language", value: "C++17, ROS 2" },
+    { label: "Code", value: "private (team repository)" },
+  ]}
+/>
+
+<Stats
+  items={[
+    { k: "Final ATE", v: <PH>— m</PH>, d: <PH>from — m</PH> },
+    { k: "Heading drift", v: <PH>— °/km</PH>, d: <PH>from — °/km</PH> },
+    { k: "Update rate", v: <PH>— Hz</PH>, d: "real-time on target" },
+    { k: "CPU", v: <PH>— %</PH>, d: "one core, Jetson" },
+  ]}
+/>
+
+## The problem
+
+PLACEHOLDER COPY. The EKF's measurement update linearises the observation model
+once, about the prior mean, and then applies a correction that can land a long
+way from that point. That is a bet that the posterior sits close to where the
+prior started. On a skidpad it does, and the bet is free.
+
+Under hard cornering it stopped being free. The body-frame velocity has to be
+rotated into the world frame, so heading enters the model through a sine and a
+cosine — and heading is exactly the state with the most uncertainty when the
+yaw rate is saturating and the no-slip wheelspeed model is furthest from true.
+A large innovation arriving while heading uncertainty is wide is the worst case
+for a one-shot Jacobian: the update is computed with a linearisation that is
+already stale by the time it is applied, and the resulting estimate is biased in
+a direction the covariance does not know about.
+
+<Figure
+  note="The divergence is visible before it is measurable — the covariance ellipse stops containing the truth around the second hairpin."
+  caption="Fig. 1 — placeholder"
+>
+  figure — EKF estimate vs. ground truth, one lap, with 3σ covariance band
+</Figure>
+
+## Approach
+
+PLACEHOLDER COPY. The iterated EKF applies the same update repeatedly, each
+pass relinearising the measurement Jacobian about the current best estimate
+rather than about the prior.
+
+<Readout
+  rows={[
+    { label: "Iterate", value: "xᵢ₊₁ = x̂⁻ + Kᵢ [ z − h(xᵢ) − Hᵢ (x̂⁻ − xᵢ) ]" },
+    { label: "Jacobian", value: "Hᵢ evaluated at xᵢ, not at the prior x̂⁻" },
+    { label: "Terminate", value: "step norm below ε, or the iteration cap" },
+  ]}
+/>
+
+Written that way the structure is a familiar one: this is Gauss-Newton on the
+maximum a posteriori objective, with the prior as one residual block and the
+measurement as the other, each weighted by its own covariance. The filter is
+not doing anything exotic — it is solving the same least-squares problem the
+EKF already solves, just without stopping after a single linearisation.
+
+The correction term subtracted inside the bracket is the part that is easy to
+leave out and expensive to leave out. It accounts for the iterate having moved
+away from the prior; without it each pass applies the measurement from scratch
+instead of refining one update, and the filter converges to an estimate that has
+counted the same observation several times over.
+
+The covariance is formed once, at the converged linearisation point, not once
+per pass. Where the model is linear in the state the iteration terminates after
+one step and the filter is exactly the EKF, which is a useful property: it
+costs nothing on the straights and only does work where the nonlinearity is
+actually biting.
+
+> Built on wheelspeeds and IMU first, deliberately — it decouples the filter
+> from the odometry's own drift, and it means adding LiDAR odometry later gives
+> a before-and-after on the same dataset rather than a separate measurement
+> exercise.
+
+## What broke
+
+PLACEHOLDER COPY. Three things, in order of how long they cost. The IMU bias
+states were initialised from a stationary average that included the ten seconds
+before the car actually stopped moving.
+
+The second was the missing prior-correction term described above. It produced a
+filter that looked *better* than the EKF on every metric that averages over a
+lap, because an over-confident estimate that happens to be near the truth scores
+well — and was visibly wrong the moment the covariance was checked against the
+actual error.
+
+The third was convergence. Gauss-Newton is not globally convergent, and an
+update that is badly conditioned — heading nearly unobservable, wheelspeeds
+disagreeing under lock-up — does not fail loudly. It iterates to the cap and
+returns something confident. The filter now terminates on the step norm falling
+below a threshold, caps the iteration count so the update fits inside the
+control period regardless, and treats hitting that cap as a signal to be logged
+rather than a normal outcome.
+
+<Figure
+  note="The second bug is the interesting one — it improves the headline error while making the covariance meaningless."
+  caption="Fig. 2 — placeholder"
+>
+  figure — heading error and 3σ bound over time, three bug fixes annotated
+</Figure>
+
+## Results
+
+PLACEHOLDER COPY. Measured against RTK GPS on the same laps.
+
+<ResultsTable
+  head={["Filter", "ATE (m)", "Heading (°/km)", "CPU (%)"]}
+  best={2}
+  rows={[
+    ["Dead reckoning", <PH key="a">—</PH>, <PH key="b">—</PH>, <PH key="c">—</PH>],
+    ["Standard EKF", <PH key="d">—</PH>, <PH key="e">—</PH>, <PH key="f">—</PH>],
+    ["Iterated EKF", <PH key="g">—</PH>, <PH key="h">—</PH>, <PH key="i">—</PH>],
+  ]}
+/>
+
+<Figure caption="Fig. 3 — placeholder">
+  figure — trajectory overlay, all three filters vs. RTK ground truth
+</Figure>
+
+## What I'd change
+
+PLACEHOLDER COPY. Damping is the obvious next thing — Levenberg-Marquardt on the
+inner loop would turn the badly-conditioned cases from "iterates to the cap" into
+"takes a shorter step", which is the behaviour I actually want there.
+
+Past that, the slip model is what limits the whole thing: a learned bias
+correction on the IMU, trained on the same logs, is the direction I want to take
+it, and it pairs directly with the filter's own bias states as a comparison.

@@ -292,6 +292,14 @@ code {
   animation: rise 1s 1.4s forwards;
 }
 
+/* On a short viewport (landscape phone, small window) the hero copy grows to
+   meet the pinned hint and they collide. The hint is decorative — drop it. */
+@media (max-height: 560px) {
+  .scrollrail {
+    display: none;
+  }
+}
+
 /* ============================================================
    Log entries
    ============================================================ */

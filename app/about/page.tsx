@@ -15,11 +15,11 @@ const capabilities: { k: string; v: string }[] = [
   },
   {
     k: "LiDAR, point clouds",
-    v: "Scan-matching odometry on vehicle data — write-up in progress",
+    v: "Scan-matching odometry on vehicle data, feeding the state estimator",
   },
   {
     k: "State estimation",
-    v: "Invariant EKF over wheelspeeds and IMU, LiDAR odometry as a second input",
+    v: "Iterated EKF over wheelspeeds and IMU, LiDAR odometry as a second input",
   },
   {
     k: "Sensor integration",

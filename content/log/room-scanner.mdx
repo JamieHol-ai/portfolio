@@ -2,10 +2,14 @@
 title: 3D room scanner
 date: 2024-06-01
 displayDate: 2024
+writeup: true
 summary: >-
   An Arduino driving a pan/tilt unit and an infrared rangefinder, sweeping a
   180° field of view to produce a point cloud of a room. C++ on the
   microcontroller, Python for reconstruction and display.
+standfirst: >-
+  Two servos, one infrared rangefinder and no odometry — the whole problem is
+  turning a stream of angle-and-distance triples into geometry you can trust.
 meta:
   - label: Built with
     value: Arduino, C++, Python
@@ -14,6 +18,86 @@ links:
     href: https://github.com/JamieHol-ai/3D-Room-Scanner
 figure:
   side: left
-  placeholder: figure — reconstructed point cloud
-  caption: Fig. 4 — placeholder
+  src: /Hero/room-scanner.png
+  alt: Reconstructed point cloud of a room, viewed from inside
+  caption: reconstructed point cloud, viewed from the scanner's position
 ---
+
+<Readout
+  rows={[
+    { label: "Microcontroller", value: <PH>PLACEHOLDER — board</PH> },
+    { label: "Rangefinder", value: <PH>PLACEHOLDER — sensor and range</PH> },
+    { label: "Actuation", value: <PH>PLACEHOLDER — pan/tilt servos and step resolution</PH> },
+    { label: "Field of view", value: <PH>180° pan × — ° tilt</PH> },
+    { label: "Firmware", value: "C++ on the microcontroller" },
+    { label: "Host", value: "Python — reconstruction and display" },
+    { label: "Code", value: <a href="https://github.com/JamieHol-ai/3D-Room-Scanner">github.com/JamieHol-ai/3D-Room-Scanner</a> },
+  ]}
+/>
+
+<Stats
+  items={[
+    { k: "Points per sweep", v: <PH>—</PH>, d: <PH>— × — grid</PH> },
+    { k: "Sweep time", v: <PH>— s</PH>, d: <PH>at — ms settle</PH> },
+    { k: "Range error", v: <PH>± — mm</PH>, d: <PH>at — m</PH> },
+    { k: "Angular step", v: <PH>— °</PH>, d: "pan and tilt" },
+  ]}
+/>
+
+## The problem
+
+PLACEHOLDER COPY. <PH>PLACEHOLDER — the brief, and why a rotating rangefinder rather than anything else.</PH>
+
+## Hardware
+
+PLACEHOLDER COPY. <PH>PLACEHOLDER — the pan/tilt assembly, the rangefinder, and how they are driven from the microcontroller.</PH>
+
+<Figure caption="Fig. 1 — placeholder">
+  figure — the pan/tilt assembly
+</Figure>
+
+## Approach
+
+PLACEHOLDER COPY. <PH>PLACEHOLDER — the sweep pattern, timing, and the serial protocol back to the host.</PH>
+
+The sensor returns a distance along a known bearing, so each sample is a point
+in spherical coordinates about the scanner: pan angle, tilt angle, range. Turning
+that into a Cartesian point cloud is a coordinate transform. Turning it into a
+*good* point cloud is everything else — the calibration between commanded servo
+angle and actual bearing, the settle time before a reading is trustworthy, and
+what to do with the returns that are simply wrong.
+
+## Reconstruction
+
+PLACEHOLDER COPY. <PH>PLACEHOLDER — the host-side pipeline: parsing, filtering, transform, and display.</PH>
+
+<Figure
+  note="Infrared rangefinders are badly behaved on dark, glossy and oblique surfaces, all three of which a room has plenty of."
+  caption="Fig. 2 — placeholder"
+>
+  figure — raw returns vs. filtered, showing the rejected samples
+</Figure>
+
+## Results
+
+PLACEHOLDER COPY. <PH>PLACEHOLDER — accuracy against measured ground truth, and where it degrades.</PH>
+
+<ResultsTable
+  head={["Surface", "Measured (m)", "Reported (m)", "Error (mm)"]}
+  rows={[
+    [<PH key="a">—</PH>, <PH key="b">—</PH>, <PH key="c">—</PH>, <PH key="d">—</PH>],
+    [<PH key="e">—</PH>, <PH key="f">—</PH>, <PH key="g">—</PH>, <PH key="h">—</PH>],
+    [<PH key="i">—</PH>, <PH key="j">—</PH>, <PH key="k">—</PH>, <PH key="l">—</PH>],
+  ]}
+/>
+
+## What I'd change
+
+PLACEHOLDER COPY. <PH>PLACEHOLDER — what I would do differently.</PH>
+
+Looking back at it from the LiDAR work: this is the same problem with the
+scanning done in software and the vehicle held still. The thing it taught me
+that transferred directly is that a range sensor's error model is not a single
+number — it depends on the surface and the incidence angle, and a pipeline that
+treats every return as equally good will produce a cloud that looks plausible
+and measures badly.
